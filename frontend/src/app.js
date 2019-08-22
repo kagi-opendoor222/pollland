@@ -8,7 +8,11 @@ import ThemeBoard from "./Components/ThemeBoard";
 class App extends React.Component {
   render(){
     return(
-      <div>Hello World</div>
+      <Router>
+        <Header />
+        <Route exact path="/" component={GlobalContainer} />
+        <Route path="/themes/:id" component={ThemeBoard} />
+      </Router>
     )
   }
 }
