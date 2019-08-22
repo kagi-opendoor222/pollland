@@ -1,13 +1,16 @@
-import React from "react"
-import ReactDOM from "react-dom"
+import React from "react";
+import {BrowserRouter as Router, Route, Link} from "react-router-dom";
 
-const axios = require("axios")
-const url = "http://localhost:4000/welcome";
-axios.get(url).then(res => {
-  console.log(res)
-})
+import GlobalContainer from "./Components/GlobalContainer"
+import Header from "./Components/Header";
+import ThemeBoard from "./Components/ThemeBoard";
 
-ReactDOM.render(
-  <div>Hello, React!</div>,
-  document.getElementById("root")
-)
+class App extends React.Component {
+  render(){
+    return(
+      <div>Hello World</div>
+    )
+  }
+}
+
+export default App;
