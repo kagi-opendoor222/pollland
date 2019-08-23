@@ -1,0 +1,178 @@
+// Place all the styles related to the themes controller here.
+// They will automatically be included i application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+
+.contents-container{
+  display:         flex;
+  justify-content: center;
+  margin: 0 auto;
+  padding: 30px 0;
+  width: 70%;
+  // background-color: white;
+  // background-color: rgba($topBackground, 0.85);
+  .dashboard{
+    width: 250px;
+    .dashboard-top{
+      height: 45px;
+      margin-bottom: 10px;
+    }
+    .dashboard-main{
+      background-color: white;
+      box-shadow: 1px 1px 2px;
+      // border: solid 2px #23AC0E;
+    }
+  }
+  .main-content{
+    width: 70%;
+    margin: 0 0 0 40px;
+    .main-content-top{
+      display: flex;
+      justify-content: space-between;
+      height: 45px;
+      margin-bottom: 10px;
+      color: $normalCharaColor;
+      h2{
+        display: inline-block;
+        color: $normalCharaColor;
+      }
+      &__post-theme-button{
+        appearance: none;
+        display: inline-block;
+        vertical-align: middle;
+        height: 80%;
+        width: 170px;
+        background-color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: solid 1px $mainColor;
+        border-left: solid 10px $mainColor;
+        color: $mainColor;
+        font-size: 1rem;
+        font-weight: bold;
+        text-decoration: none;
+        position: relative;
+        &:hover span{
+          position: relative;
+          color: white;
+        }
+        &::before{
+          content: "";
+          background-color: $mainColor;
+          height: 100%;
+          width: 0%;
+          transition: 0.2s;
+          position: absolute;
+          left: 0;
+          top: 0;
+        }
+        &:hover::before{
+          width: 100%;
+        }
+      }
+    }
+    .main-content-board{
+      padding: 0;
+    }
+  }
+}
+
+.color-bar{
+  height: 50px;
+  background-color: $userDashboard;
+  color: white;
+  &__user-name{
+    font-size: 1.1rem;
+    padding: 20px 0px 0px 105px
+  }
+}
+.user-info{
+  // display: flex;
+  background-color: white;
+  padding: 0 20px;
+  &__img{
+    width: 30%;
+    margin-top: -30px;
+    border: 1px solid black;
+    background-color: white;
+  }
+  &__count{
+    // width: 220px;
+    height: 200px;
+    margin: 20px 0 0 0;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+      .count-status{
+        margin-left: 20px;
+        &__name{
+          font-size: 0.7rem;
+
+        }
+        &__value{
+          font-size: 1.3rem;
+          float: right;
+        }
+      }
+  }
+}
+
+
+
+.theme-card{
+  // border: solid 3px $headerAccent;
+  box-shadow: 1px 1px 2px;
+  margin-bottom: 35px;
+  position: relative;
+  &__img-box{
+    height: 150px;
+    overflow: hidden;
+    display: flex;
+    transition: 1s;
+    &:hover{
+      height: 225px;
+    }
+    li{
+      width: 50%;
+      height: 100%;
+      transition: 1s;
+      object-position: 50% 50%;
+      &:hover{
+        width: 80%;
+      }
+      img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+  }
+  .theme-card__title{
+    // border-bottom: solid 3px $headerAccent;
+    // background: url("https://photo-pot.com/wp/wp-content/uploads/2011/08/town1.jpg");
+    // url("https://www.pakutaso.com/shared/img/thumb/KAZTDSCF7026_TP_V.jpg");
+    // background-position: left 0px center,
+    // right 0px center;
+    background-size:cover;
+    position: absolute;
+    top: 0;
+    .theme-detail{
+      color: white;
+      box-sizing: border-box;
+      font-size: 1.2rem;
+      &__title{
+        display: inline-block;
+        background-color: rgba(#8E8E8E, 0.7);
+        padding: 5px 50px;
+      }
+    }
+  }
+  &__user{
+    @include sm-user-name-setting();
+    background-color: white;
+
+  }
+}
