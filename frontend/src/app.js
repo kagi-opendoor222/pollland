@@ -10,8 +10,10 @@ class App extends React.Component {
     return(
       <Router>
         <Header />
-        <Route exact path="/" component={GlobalContainer} />
-        <Route path="/themes/:id" component={ThemeBoard} />
+        <div className="page-container">
+          <Route exact path="/" component={GlobalContainer} />
+          <Route path="/themes/:id" component={ThemeBoard} />
+        </div>
       </Router>
     )
   }
