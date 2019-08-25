@@ -27,7 +27,7 @@ export const GroupImagePanel = () => {
           <div className="bar">
             <div className="score">0%</div>
           </div>
-        <form　className="poll-form">
+        <form className="poll-form">
           <input type="submit" className="poll-button" value="投票"/>
         </form>
         </div>
