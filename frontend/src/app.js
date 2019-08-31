@@ -4,7 +4,7 @@ import {BrowserRouter as Router, Route, Link, Switch} from "react-router-dom";
 import GlobalContainer from "./Components/GlobalContainer"
 import Header from "./Components/Header";
 import ThemeBoard from "./Components/ThemeBoard";
-import PostThemeForm from "./Components/PostThemeForm";
+import PostAgendaForm from "./Components/PostAgendaForm";
 
 class App extends React.Component {
   render(){
@@ -14,7 +14,7 @@ class App extends React.Component {
         <div className="page-container">
           <Switch>
             <Route exact path="/" component={GlobalContainer} />
-            <Route path="/themes/new" component={PostThemeForm} />
+            <Route path="/themes/new" component={PostAgendaForm} />
             <Route path="/themes/:id" component={ThemeBoard} />
           </Switch>
         </div>
