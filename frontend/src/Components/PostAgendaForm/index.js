@@ -103,6 +103,8 @@ class PostAgendaForm extends React.Component{
   constructor(props){
     super(props);
 
+    this.handleSubmit = this.handleSubmit.bind(this);
+
   // const xxxxConfig = {
   //     入力項目名: {
   //       elementType:     -> HTMLタグ名 <input> or <textarea>
@@ -162,9 +164,65 @@ class PostAgendaForm extends React.Component{
     }
   }
 
+  /**
+   * オブジェクトの中からpermitedKeysに対応するkey/valueペアを抽出し、新しいオブジェクトを作る汎用メソッド
+   * 
+   * @param {Object} obj 
+   * @param {Array} permitedKeys 
+   */
+  narrowDownByKeys(obj,permitedKeys){
+    let newObj = {}
+    for(let key in obj){
+      if(permitedKeys.includes(key)){
+        newObj[key] = obj[key]
+      }
+    }
+    return newObj
+  }
+
+  /**
+   * 受け渡されたオブジェクトが持つ、全ての子オブジェクトからvalueを抽出して新しいオブジェクトを作る。
+   * 適用例：
+   * { hoge: {name: "ほげ", value: 100}, huga: {name: "ふが", value: 200}}
+   * => {hoge: 100, huga: 200}
+   * 
+   * @param {Object} obj
+   */
+  narrowDownAllElement(obj){
+    let narrowDownedObj = {}
+    for(let input in obj){
+      narrowDownedObj[input] = obj[input]["value"] //this.narrowDownByKeys(inputCategory[input], ["value"])
+    }
+    return narrowDownedObj
+  }
+
+  /**
+   * stateに格納したformのデータからRailsAPIに受け渡したいデータのみを抽出し、整形した状態のObject作成し、返す。
+   * 
+   * @param {Object} formData 
+   */
+  prettyfyFormData(formData){
+    let prettyData = {}
+    for(let inputCategory in formData){
+      //要素が配列であればその全てにnarrowDownAllElementメソッドを適用、単品であればそれに直接narrowDownAllElementを適用。
+      if(Array.isArray(formData[inputCategory])){
+        prettyData[inputCategory] = formData[inputCategory].map((inputCategory)=> this.narrowDownAllElement(inputCategory))
+      }else{
+        prettyData[inputCategory] = {}
+        prettyData[inputCategory] = this.narrowDownAllElement(formData[inputCategory])
+      }
+    }
+    return prettyData
+  }
+
+
   handleSubmit(e){
     e.preventDefault();
-    console.log(e);
+    let data = this.prettyfyFormData(this.state.form)
+    const url = "http://localhost:4000/agendas"
+    axios.post(url, data).then(res => {
+      console.log(res)
+    })
   }
 
   /**
@@ -188,11 +246,7 @@ class PostAgendaForm extends React.Component{
       case("candidate"):
         formData.candidate[number][column].value = event.target.value
         break;
-    }
-
-
-    console.log("formdata-after:",formData)
-
+    } 
     this.setState({form: formData})
   }
 
