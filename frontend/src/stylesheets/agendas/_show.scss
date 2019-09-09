@@ -1,5 +1,5 @@
 
-.theme-title{
+.agenda-title{
   width: $basePageWidth;
   background-color: white;
   color: $normalCharaColor;
@@ -11,23 +11,23 @@
   padding: 5px 20px;
 }
 
-.group-boards{
-  @include group-boards-setting();
+.candidate-boards{
+  @include candidate-boards-setting();
 }
 
-.group-board{
-  @include group-board-setting();
+.candidate-board{
+  @include candidate-board-setting();
   min-width: 300px;
-  .group-board-top{
+  .candidate-board-top{
     position: relative;
     height: 300px;
     overflow: hidden;
-    .group-image{
+    .candidate-image{
       width: 100%;
       height: 100%;
       object-fit: cover;
     }
-    .group-detail{
+    .candidate-detail{
       position: absolute;
       top: 0;
       height: 100%;
@@ -69,7 +69,7 @@
       }
     }
   }
-  .group-board-bottom{
+  .candidate-board-bottom{
     background-color: white;
     color: $normalCharaColor;
     .comments{

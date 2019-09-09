@@ -1,6 +1,6 @@
 import React from "react";
 import UserDashBoard from "./UserDashBoard";
-import ThemeList from "./ThemeList";
+import AgendaList from "./AgendaList";
 import { BrowserRouter as Router, Link } from "react-router-dom";
 
 const GlobalContainer = ()=>{
@@ -10,12 +10,12 @@ const GlobalContainer = ()=>{
       <div className="main-content">
         <div className="main-content-top">
           <h2>投票</h2>
-          <Link to="/themes/new" className="main-content-top__post-theme-button">
+          <Link to="/agendas/new" className="main-content-top__post-agenda-button">
             <span>テーマを投稿</span>
           </Link>
         </div>
         <div className="main-content-board">
-          <ThemeList />
+          <AgendaList />
         </div>
       </div>
     </div>

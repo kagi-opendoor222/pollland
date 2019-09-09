@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 
 //TODO: バリデーション作る
 
@@ -62,12 +63,12 @@ export const Input = (props) => {
       }
     }]
  */
-export const InputAgengaBoards = (props)=>{
+export const InputCandidateBoards = (props)=>{
   //numberOfBoardsの数だけボードを生成し、boardsに格納
   const boards = [...Array(props.numberOfBoards)].map((value,i)=>{
     return(
       //TODO: ここはイテレートしたい
-      <div className="input-group-board" key={i}>
+      <div className="input-candidate-board" key={i}>
         <Input
           {...props.configs[i].name}
           onChange={(event, name) => props.onChange(event, name, i)}
@@ -87,7 +88,7 @@ export const InputAgengaBoards = (props)=>{
 
 
   return(
-    <div className="input-group-boards">
+    <div className="input-candidate-boards">
       {boards}
     </div>
   )
@@ -117,7 +118,7 @@ class PostAgendaForm extends React.Component{
         elementConfig:   {
           type:            "text",
           placeholder:     "",
-          className:       "theme-create-form__input-theme-name",
+          className:       "agenda-create-form__input-agenda-name",
           name:            "agenda-name",
         },
         label:           "投票テーマ",
@@ -130,7 +131,7 @@ class PostAgendaForm extends React.Component{
         elementConfig:     {
           type:              "text",
           placeholder:       "例：犬派",
-          className:         "theme-create-form__input-group-name",
+          className:         "agenda-create-form__input-candidate-name",
           name:             "candidate-name",
         },
         label:             "選択肢",
@@ -140,7 +141,7 @@ class PostAgendaForm extends React.Component{
         elementType:       "textarea",
         elementConfig:     {
           placeholder:       "例：かわいい",
-          className:         "theme-create-form__input-group-message",
+          className:         "agenda-create-form__input-candidate-message",
           name:            "candidate-message",
         },
         label:            "メッセージ",
@@ -200,22 +201,22 @@ class PostAgendaForm extends React.Component{
     const candidateConfigs = this.state.form.candidate    //各candidateのそれぞれの入力項目の設定
     return(
       <div>
-        <div className="theme-title">
+        <div className="agenda-title">
           投票テーマ作成フォーム
         </div>
-        <form className="theme-create-form" onSubmit={this.hundleSubmit}>
-          
+        <form className="agenda-create-form" onSubmit={this.handleSubmit}>
+
           <Input
             {...agendaNameConfig} 
             onChange={(event, name) => this.handleInputChange(event, name)}
           />
-          <InputAgengaBoards
+          <InputCandidateBoards
             numberOfBoards={2}
             onChange={(event, name, number) => this.handleInputChange(event, name, number)}
             configs={candidateConfigs}
           />
           <label>
-            <div className="theme-create-form__submit"><span>作成！</span></div>
+            <div className="agenda-create-form__submit"><span>作成！</span></div>
             <input type="submit" style={{display: "none"}} />
           </label>
         </form>

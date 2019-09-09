@@ -3,7 +3,7 @@ import {BrowserRouter as Router, Route, Link, Switch} from "react-router-dom";
 
 import GlobalContainer from "./Components/GlobalContainer"
 import Header from "./Components/Header";
-import ThemeBoard from "./Components/ThemeBoard";
+import AgendaBoard from "./Components/AgendaBoard";
 import PostAgendaForm from "./Components/PostAgendaForm";
 
 class App extends React.Component {
@@ -14,8 +14,8 @@ class App extends React.Component {
         <div className="page-container">
           <Switch>
             <Route exact path="/" component={GlobalContainer} />
-            <Route path="/themes/new" component={PostAgendaForm} />
-            <Route path="/themes/:id" component={ThemeBoard} />
+            <Route path="/agendas/new" component={PostAgendaForm} />
+            <Route path="/agendas/:id" component={AgendaBoard} />
           </Switch>
         </div>
       </Router>

@@ -1,9 +1,9 @@
-.theme-create-form{
+.agenda-create-form{
   margin: 70px auto;
   width: $basePageWidth;
   // background-color: white;
   height: 1000px;
-  &__input-theme-name{
+  &__input-agenda-name{
     width: 100%;
     height: 50px;
     border: solid 1px #C8EFEA;
@@ -19,7 +19,7 @@
       box-shadow: 0 0 5px #40BFB0;
     }
   }
-  &__input-group-name{
+  &__input-candidate-name{
     width: 60%;
     height: 50px;
     border: solid 1px #C8EFEA;
@@ -34,7 +34,7 @@
       box-shadow: 0 0 5px #40BFB0;
     }
   }
-  &__input-group-message{
+  &__input-candidate-message{
     width: 90%;
     height: 50px;
     border: solid 2px #C8EFEA;
@@ -89,14 +89,14 @@
   }
 }
 
-.input-group-boards{
-  @include group-boards-setting();
+.input-candidate-boards{
+  @include candidate-boards-setting();
   border-radius: 5px;
 }
 
-.input-group-board{
+.input-candidate-board{
   height: 450px;
-  @include group-board-setting();
+  @include candidate-board-setting();
   padding: 40px 30px;
   box-sizing: border-box;
   background-color: rgba(#C8EFEA,0.7);

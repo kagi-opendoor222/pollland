@@ -1,4 +1,4 @@
-// Place all the styles related to the themes controller here.
+// Place all the styles related to the agendas controller here.
 // They will automatically be included i application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
@@ -37,7 +37,7 @@
         display: inline-block;
         color: $normalCharaColor;
       }
-      &__post-theme-button{
+      &__post-agenda-button{
         appearance: none;
         display: inline-block;
         vertical-align: middle;
@@ -122,7 +122,7 @@
 
 
 
-.theme-card{
+.agenda-card{
   // border: solid 3px $headerAccent;
   box-shadow: 1px 1px 2px;
   margin-bottom: 35px;
@@ -150,7 +150,7 @@
       }
     }
   }
-  .theme-card__title{
+  .agenda-card__title{
     // border-bottom: solid 3px $headerAccent;
     // background: url("https://photo-pot.com/wp/wp-content/uploads/2011/08/town1.jpg");
     // url("https://www.pakutaso.com/shared/img/thumb/KAZTDSCF7026_TP_V.jpg");
@@ -159,7 +159,7 @@
     background-size:cover;
     position: absolute;
     top: 0;
-    .theme-detail{
+    .agenda-detail{
       color: white;
       box-sizing: border-box;
       font-size: 1.2rem;
