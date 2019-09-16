@@ -1,9 +1,9 @@
 import React from "react";
 import axios from "axios";
+import {BrowserRouter as Router, Route, Link, Switch, Redirect} from "react-router-dom";
 
 //TODO: バリデーション作る
-
-//
+//TODO: 画像をリサイズして軽くしたい
 
 /**
  * 与えられた情報を元にinput要素を生成するComponent。
@@ -17,6 +17,8 @@ import axios from "axios";
  */
 export const Input = (props) => {
   let  inputElement = null;
+
+  //inputに与えられる設定全て
   const inputAttributes = {
     ...props.elementConfig,
     value: props.value,
@@ -77,11 +79,9 @@ export const InputCandidateBoards = (props)=>{
           {...props.configs[i].message}
           onChange={(event, name) => props.onChange(event, name, i)}
         />
-        <label key={`label${i}`}>画像</label><br />
-        <input
-          type="file"
-          onChange={props.onChange}
-        />
+        <Input
+          {...props.configs[i].image}
+          onChange={(event, name) => props.onChange(event, name, i)}/>
       </div>
     )
   })
@@ -97,6 +97,37 @@ export const InputCandidateBoards = (props)=>{
 /**
  * 投票テーマAgendaと、それに選択肢(Candidate)を設定する投稿フォーム。
  * Agenda設定欄と、複数のCandidate設定ボードから成り立つ
+ * 
+ * state: {
+    form: {
+        agenda: {
+            name: {
+                elementType: string;
+                elementConfig: {
+                  ...;
+                };
+                label: string;
+                value: string;
+                };
+        };
+        candidate: {
+            name: {
+                elementType: string;
+                elementConfig: {
+                    ...;
+                };
+                label: string;
+                value: string;
+            };
+            message: {
+                ...;
+                };
+            image: {
+                ...;
+            };
+        }[];
+    };
+}
  */
 class PostAgendaForm extends React.Component{
 
@@ -148,6 +179,15 @@ class PostAgendaForm extends React.Component{
         },
         label:            "メッセージ",
         value:            ""
+      },
+      image: {
+        elementType:        "input",
+        elementConfig: {
+          type:             "file",
+          name:             "candidate-image"
+        },
+        label:            "ファイル",
+        file:          {}
       }
     }
 
@@ -160,7 +200,7 @@ class PostAgendaForm extends React.Component{
       form: {
         agenda: agendaConfig,
         candidate: candidateConfigs
-      }  
+      }
     }
   }
 
@@ -181,7 +221,7 @@ class PostAgendaForm extends React.Component{
   }
 
   /**
-   * 受け渡されたオブジェクトが持つ、全ての子オブジェクトからvalueを抽出して新しいオブジェクトを作る。
+   * 受け渡されたオブジェクトが持つ、全ての子オブジェクトからvalueかfileを抽出して新しいオブジェクトを作る。
    * 適用例：
    * { hoge: {name: "ほげ", value: 100}, huga: {name: "ふが", value: 200}}
    * => {hoge: 100, huga: 200}
@@ -189,11 +229,16 @@ class PostAgendaForm extends React.Component{
    * @param {Object} obj
    */
   narrowDownAllElement(obj){
-    let narrowDownedObj = {}
-    for(let input in obj){
-      narrowDownedObj[input] = obj[input]["value"] //this.narrowDownByKeys(inputCategory[input], ["value"])
+    let newObj = {}
+    for(let key in obj){
+      const childObj =  obj[key]
+      if(childObj["file"]){
+        newObj[key] = childObj["file"] //fileを抽出し一階層上に上げる
+      }else{
+        newObj[key] = childObj["value"] //valueを抽出し一階層上に上げる
+      }
     }
-    return narrowDownedObj
+    return newObj
   }
 
   /**
@@ -206,9 +251,8 @@ class PostAgendaForm extends React.Component{
     for(let inputCategory in formData){
       //要素が配列であればその全てにnarrowDownAllElementメソッドを適用、単品であればそれに直接narrowDownAllElementを適用。
       if(Array.isArray(formData[inputCategory])){
-        prettyData[inputCategory] = formData[inputCategory].map((inputCategory)=> this.narrowDownAllElement(inputCategory))
+        prettyData[inputCategory] = formData[inputCategory].map((child)=> this.narrowDownAllElement(child))
       }else{
-        prettyData[inputCategory] = {}
         prettyData[inputCategory] = this.narrowDownAllElement(formData[inputCategory])
       }
     }
@@ -220,20 +264,34 @@ class PostAgendaForm extends React.Component{
     e.preventDefault();
     let data = this.prettyfyFormData(this.state.form)
     const url = "http://localhost:4000/agendas"
-    axios.post(url, data).then(res => {
+    console.log(data)
+    axios.post(url,data,{
+    }).then(res => {
       console.log(res)
+      this.props.history.push('/')
     })
+
+  }
+
+
+  setFileToFormData(formData, candidateNo, column){
+    let reader = new FileReader();
+    const file = event.target.files[0]
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      const encodedFile = reader.result;
+      formData.candidate[candidateNo][column].file = encodedFile;
+    };
   }
 
   /**
    * inputに入力があった際に、入力された値とstateの同期を取るMethod。
    * 
-   * @param {*} event 
-   * @param {*} table 
-   * @param {*} column 
-   * @param {*} number 
+   * @param {object} event 
+   * @param {string} name                <input>に与えられた名前 ex) agenda-message
+   * @param {integer} candidateNo    agendaに含まれる何番目のcandidateか
    */
-  handleInputChange(event, name, number){
+  handleInputChange(event, name, candidateNo){
     //formのデータをディープコピー
     const formData = JSON.parse(JSON.stringify(this.state.form))
     const table = name.split("-")[0]
@@ -244,7 +302,11 @@ class PostAgendaForm extends React.Component{
         formData.agenda[column].value = event.target.value
         break;
       case("candidate"):
-        formData.candidate[number][column].value = event.target.value
+        if(column === "image"){
+          this.setFileToFormData(formData, candidateNo, column);
+        }else{
+          formData.candidate[candidateNo][column].value = event.target.value /* setValueToFormData */ 
+        }
         break;
     } 
     this.setState({form: formData})
@@ -258,15 +320,14 @@ class PostAgendaForm extends React.Component{
         <div className="agenda-title">
           投票テーマ作成フォーム
         </div>
-        <form className="agenda-create-form" onSubmit={this.handleSubmit}>
-
+        <form className="agenda-create-form" onSubmit={this.handleSubmit} encType="multipart/form-data">
           <Input
             {...agendaNameConfig} 
             onChange={(event, name) => this.handleInputChange(event, name)}
           />
           <InputCandidateBoards
             numberOfBoards={2}
-            onChange={(event, name, number) => this.handleInputChange(event, name, number)}
+            onChange={(event, name, candidateNo) => this.handleInputChange(event, name, candidateNo)}
             configs={candidateConfigs}
           />
           <label>

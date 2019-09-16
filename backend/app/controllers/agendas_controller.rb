@@ -6,12 +6,20 @@ class AgendasController < ApplicationController
     @agenda = Agenda.new
   end
   def create
-    binding.pry
     agenda = Agenda.create(agenda_params)
+    candidate = []
     params[:candidate].length.times do |i|
-      candidate = agenda.candidates.create(candidate_params(i))
+      candidate[i] = agenda.candidates.create(candidate_params(i))
+      candidate[i].parse_base64(params[:candidate][i][:image])
     end
-    render json: { status: 'SUCCESS', message: 'さくせす！', data: "aaa" }
+    render json: { 
+      status: 'SUCCESS',
+      message: 'さくせす！',
+      data: {
+        agenda: agenda,
+        candidate: candidate
+      }
+    }
   end
   def show
     @agenda = Agenda.find(params[:id])
@@ -22,6 +30,6 @@ class AgendasController < ApplicationController
     params.require(:agenda).permit(:name).merge({user_id: 1})
   end
   def candidate_params(i)
-    params.require(:candidate)[i].permit(:name, :message, :image)
+    params.require(:candidate)[i].permit(:name, :message)
   end
 end
