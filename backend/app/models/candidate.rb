@@ -4,6 +4,10 @@ class Candidate < ApplicationRecord
 
   has_one_attached :image
 
+  attr_accessor :image_url
+
+  include Rails.application.routes.url_helpers
+
   def votes_count
     self.votes.length
   end
@@ -33,6 +37,11 @@ class Candidate < ApplicationRecord
       end
       attach_image(filename)
     end
+  end
+
+  def set_image_url
+    self.image_url = image.attached? ? rails_blob_url(self.image) : ""
+    return self
   end
 
   private

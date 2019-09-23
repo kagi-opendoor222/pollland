@@ -101,8 +101,7 @@ export const InputCandidateBoards = (props)=>{
  * state: {
     form: {
         agenda: {
-            name: {
-                elementType: string;
+            name: {elementType: string;
                 elementConfig: {
                   ...;
                 };

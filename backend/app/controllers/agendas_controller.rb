@@ -1,6 +1,14 @@
 class AgendasController < ApplicationController
   def index
     @agendas = Agenda.all
+    @candidates = @agendas.map{|agenda|
+       agenda.candidates.to_a
+      }.flatten
+    @candidates = @candidates.map(&:set_image_url)
+    render json: {
+      agendaList: @agendas.to_json,
+      candidateList: @candidates.to_json(methods: :image_url)
+    }
   end
   def new
     @agenda = Agenda.new
