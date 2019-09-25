@@ -4,6 +4,7 @@ import {BrowserRouter as Router, Route, Link, Switch, Redirect} from "react-rout
 
 //TODO: バリデーション作る
 //TODO: 画像をリサイズして軽くしたい
+//TODO: 404ページをReactを使って作りたい
 
 /**
  * 与えられた情報を元にinput要素を生成するComponent。
@@ -132,7 +133,6 @@ class PostAgendaForm extends React.Component{
 
   constructor(props){
     super(props);
-
     this.handleSubmit = this.handleSubmit.bind(this);
 
   // const xxxxConfig = {
@@ -263,10 +263,8 @@ class PostAgendaForm extends React.Component{
     e.preventDefault();
     let data = this.prettyfyFormData(this.state.form)
     const url = "http://localhost:4000/agendas"
-    console.log(data)
     axios.post(url,data,{
     }).then(res => {
-      console.log(res)
       this.props.history.push('/')
     })
 

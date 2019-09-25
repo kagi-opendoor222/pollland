@@ -1,15 +1,14 @@
 import React from "react";
 import axios from "axios";
+import {BrowserRouter as Router, Link} from "react-router-dom";
 /**
  * ユーザーが投稿したAgenda(テーマ)とそれぞれのcandidate(投票対象)の情報を表示するカード1つを生成する。
  * 
- * @param {*} agenda 
- * @param {*} candidates 
+ * @param {*} agendaPackage = {...agenda, candidate: [candidate1, candidate2, ...]}
  * 
  *   agenda:
  *     { id, message, name, start_time, end_time, created_at, updated_at, user_id }
- * 
- *   candidates:
+ *   candidate:
  *     { id, message, name, created_at, updated_at, agenda_id }
  */
 
@@ -17,17 +16,17 @@ const AgendaCard = (props) => {
   const image_list = props.candidate.map((candidate, i)=>{
     return(
       <li key={i}>
-        <img src={candidate.image_url}/>
+        <img src={candidate.image_url} className=""/>
       </li>
     )
   })
   return(
     <div className="agenda-card">
-      <a>
+      <Link to={`/agendas/${props.id}`} >
         <ul className="agenda-card__img-box">
           {image_list}
         </ul>
-      </a>
+      </Link>
       <div className="agenda-card__title">
         <div className="agenda-detail">
           <div className="agenda-detail__title">なまえ</div>
@@ -106,9 +105,11 @@ class AgendaList extends React.Component{
   /**
    * RailsAPIからagendaListとcandidateListを取得し、setStateする。
    */
+
+   //TODO: もっとキレイに書きたい
   setStateFromAPI(){
     const url = "http://localhost:4000/agendas"
-    axios.get(url).then((response) => {
+    axios.get(url).then(response => {
       if(this._isMounted){
         const agendaList = JSON.parse(response.data.agendaList)
         const candidateList = JSON.parse(response.data.candidateList)

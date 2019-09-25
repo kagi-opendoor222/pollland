@@ -31,6 +31,12 @@ class AgendasController < ApplicationController
   end
   def show
     @agenda = Agenda.find(params[:id])
+    @candidates = @agenda.candidates
+    @candidates = @candidates.map(&:set_image_url)
+    render json:{
+      agenda: @agenda.to_json,
+      candidates: @candidates.to_json(methods: :image_url)
+    }
   end
   private
   def agenda_params

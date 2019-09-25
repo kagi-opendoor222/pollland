@@ -17,12 +17,18 @@ export const Comments = () => {
   )
 }
 
-export const CandidateImagePanel = () => {
+/**
+ * CandidateBoardの中でも画像カードの部分
+ * 
+ * @param {*} props 
+ *   @param {object} candidate : { id, message, name, created_at, updated_at, agenda_id }
+ */
+export const CandidateImagePanel = (props) => {
   return(
-    <div>
-      <img src="https://dol.ismcdn.jp/mwimgs/7/1/670m/img_71c53c1d81500a1cf73a4f543e72413f27838.jpg"/>
+    <React.Fragment>
+      <img src={props.image_url} className="candidate-image"/>
       <div className="candidate-detail">
-        <div className="candidate-detail__title">candidateName</div>
+        <div className="candidate-detail__title">{props.name}</div>
         <div className="candidate-detail__bar-graph">
           <div className="bar">
             <div className="score">0%</div>
@@ -32,31 +38,37 @@ export const CandidateImagePanel = () => {
         </form>
         </div>
       </div>
-    </div>
+    </React.Fragment>
   )
 }
-
-const CandidateBoards = () =>{
+/**
+ * AgendaBoardが内包する、Candidate(投票対象)の情報とそのvote情報
+ * 
+ * @param {*} props = {
+ *   @param {object} agenda :      { id, message, name, start_time, end_time, created_at, updated_at, user_id }
+ *   @param {array} candidates :   [candidate1, cadidate2, ...] 
+ *     @param {object} candidate : { id, message, name, created_at, updated_at, agenda_id }
+ * }    
+ * 
+ */
+const CandidateBoards = (props) =>{
+  const candidates = props.candidates
+  const list = candidates.map((candidate, i) => {
+    return(
+      <li className="candidate-board" id="candidate<%= candidate.id %>-board" key={i}>
+        {/* hidden_field_tag("candidate#{candidate.id}", candidate.vote_ratio, id: "candidate#{candidate.id}-vote-ratio") */}
+        <div className="candidate-board-top">
+          <CandidateImagePanel {...candidate} />
+        </div>
+        <div className="candidate-board-bottom">
+          <Comments />
+        </div>
+      </li>
+    )
+  })
   return(
     <ul className="candidate-boards">
-      <li className="candidate-board" id="candidate<%= candidate.id %>-board" >
-        {/* hidden_field_tag("candidate#{candidate.id}", candidate.vote_ratio, id: "candidate#{candidate.id}-vote-ratio") */}
-        <div className="candidate-board-top">
-          <CandidateImagePanel />
-        </div>
-        <div className="candidate-board-bottom">
-          <Comments />
-        </div>
-      </li>
-      <li className="candidate-board" id="candidate<%= candidate.id %>-board" >
-        {/* hidden_field_tag("candidate#{candidate.id}", candidate.vote_ratio, id: "candidate#{candidate.id}-vote-ratio") */}
-        <div className="candidate-board-top">
-          <CandidateImagePanel />
-        </div>
-        <div className="candidate-board-bottom">
-          <Comments />
-        </div>
-      </li>
+      {list}
     </ul>
   )
 }
