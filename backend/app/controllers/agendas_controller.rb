@@ -4,10 +4,9 @@ class AgendasController < ApplicationController
     @candidates = @agendas.map{|agenda|
        agenda.candidates.to_a
       }.flatten
-    @candidates = @candidates.map(&:set_image_url)
     render json: {
       agendaList: @agendas.to_json,
-      candidateList: @candidates.to_json(methods: :image_url)
+      candidateList: Candidate.to_json_with_data(@candidates)
     }
   end
   def new
@@ -32,10 +31,9 @@ class AgendasController < ApplicationController
   def show
     @agenda = Agenda.find(params[:id])
     @candidates = @agenda.candidates
-    @candidates = @candidates.map(&:set_image_url)
     render json:{
       agenda: @agenda.to_json,
-      candidates: @candidates.to_json(methods: :image_url)
+      candidates: Candidate.to_json_with_data(@candidates)
     }
   end
   private

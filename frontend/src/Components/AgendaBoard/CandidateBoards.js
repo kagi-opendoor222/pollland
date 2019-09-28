@@ -31,7 +31,7 @@ export const CandidateImagePanel = (props) => {
         <div className="candidate-detail__title">{props.name}</div>
         <div className="candidate-detail__bar-graph">
           <div className="bar">
-            <div className="score">0%</div>
+            <div className="score">{ props.vote_ratio }%</div>
           </div>
         <form className="poll-form">
           <input type="submit" className="poll-button" value="投票"/>

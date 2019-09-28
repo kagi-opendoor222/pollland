@@ -4,26 +4,10 @@ class Candidate < ApplicationRecord
 
   has_one_attached :image
 
-  attr_accessor :image_url
-
   include Rails.application.routes.url_helpers
 
-  def votes_count
-    self.votes.length
-  end
-  # def self.votes_count_list
-  #   self.all.map(&:votes_count)
-  # end
-  def self.to_ratio(counts)
-    return counts.map do |num|
-      (num / counts.sum.to_f * 100).round
-    end
-  end
-
-  def vote_ratio
-    votes_counts = self.agenda.votes_counts_of_candidates
-    vote_ratio = (self.votes.length.to_f / votes_counts.sum * 100).round
-    return all_votes_counts.sum > 0 ? vote_ratio : 0
+  def self.to_json_with_data(candidates)
+    return candidates.to_json(methods: [:image_url, :vote_count, :vote_ratio])
   end
 
   def parse_base64(img)
@@ -39,9 +23,22 @@ class Candidate < ApplicationRecord
     end
   end
 
-  def set_image_url
-    self.image_url = image.attached? ? rails_blob_url(self.image) : ""
-    return self
+  def image_url
+    image.attached? ? rails_blob_url(self.image) : ""
+  end
+
+  def vote_count
+    self.votes.length
+  end
+
+  def vote_ratio
+    sum_votes = self.agenda.sum_votes
+    if sum_votes > 0
+      vote_ratio = (self.votes.length.to_f / sum_votes * 100).round
+    else
+      vote_ratio = 0
+    end
+    return vote_ratio
   end
 
   private
