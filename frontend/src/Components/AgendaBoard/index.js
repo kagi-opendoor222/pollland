@@ -20,7 +20,7 @@ class AgendaBoard extends React.Component{
   }
   componentDidMount(){
     this._isMounted = true;
-    this.setStateFromAPI()
+    this.setStateFromAPI();
   }
   componentWillUnMount(){
     this._isMounted = false;
@@ -40,18 +40,35 @@ class AgendaBoard extends React.Component{
       })
     })
   }
+
+  handleVote(e, candidateId){
+    e.preventDefault()
+    const data = {candidate_id: candidateId}
+    const url = "http://localhost:4000/votes"
+    axios.post(
+      url, data
+    ).then(response =>{
+      const candidate = JSON.parse(response.data.candidate)
+      const candidates = JSON.parse(response.data.candidates) 
+      this.setState({candidates: candidates})
+    })
+  }
+  
   render(){
     const agenda = this.state.agenda;
     const candidates = this.state.candidates;
     const name = agenda.name;
-    console.log(agenda, candidates)
     return(
       <React.Fragment>
         <div className="agenda-title">
           {name}
         </div>
         <div className="contents-container">
-          <CandidateBoards agenda={agenda} candidates={candidates}/>
+          <CandidateBoards 
+            agenda={agenda}
+            candidates={candidates}
+            handleVote={(e, candidateId) => this.handleVote(e, candidateId)}
+          />
         </div>
       </React.Fragment>
     )

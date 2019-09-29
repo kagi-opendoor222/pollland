@@ -24,6 +24,7 @@ export const Comments = () => {
  *   @param {object} candidate : { id, message, name, created_at, updated_at, agenda_id }
  */
 export const CandidateImagePanel = (props) => {
+  const candidateId = props.id
   return(
     <React.Fragment>
       <img src={props.image_url} className="candidate-image"/>
@@ -33,7 +34,10 @@ export const CandidateImagePanel = (props) => {
           <div className="bar">
             <div className="score">{ props.vote_ratio }%</div>
           </div>
-        <form className="poll-form">
+        <form 
+          className="poll-form"
+          onSubmit={(e) => props.handleVote(e, candidateId)}
+        >
           <input type="submit" className="poll-button" value="投票"/>
         </form>
         </div>
@@ -58,7 +62,10 @@ const CandidateBoards = (props) =>{
       <li className="candidate-board" id="candidate<%= candidate.id %>-board" key={i}>
         {/* hidden_field_tag("candidate#{candidate.id}", candidate.vote_ratio, id: "candidate#{candidate.id}-vote-ratio") */}
         <div className="candidate-board-top">
-          <CandidateImagePanel {...candidate} />
+          <CandidateImagePanel 
+            {...candidate}
+            handleVote={(e, candidateId) => props.handleVote(e, candidateId)}
+          />
         </div>
         <div className="candidate-board-bottom">
           <Comments />
