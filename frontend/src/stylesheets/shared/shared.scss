@@ -1,0 +1,46 @@
+
+h1{
+  font-size: 1.5rem;
+}
+h2{
+  font-size: 1.5rem;
+}
+
+body{
+    background-size: cover;
+    background-attachment: fixed;
+    background-color: #EBEDED;
+}
+
+
+#header{
+//   background-color: #6CFF55;
+  background-color: #FFFFFF;
+  height: 80px;
+  width: 100%;
+  z-index: 1;
+  color:  $normalCharaColor;
+  padding: 25px 0 0px;
+  position: fixed;
+  box-sizing: border-box;
+  border-bottom: solid 3px $headerAccent;
+  transition: 0.5s;
+  h1{
+    width: 70%;
+    margin: 0 auto;
+    transition: 0.5s;
+  }
+}
+
+.smallHeader{
+  height: 35px !important;
+  padding: 0 !important;
+  h1{
+    font-size: 1.3rem;
+  }
+}
+
+.page-container{
+  background-color: rgba($topBackground, 0.85);
+  padding: 125px 0 5px;
+}

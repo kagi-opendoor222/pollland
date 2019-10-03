@@ -1,0 +1,105 @@
+.agenda-create-form{
+  margin: 70px auto;
+  width: $basePageWidth;
+  // background-color: white;
+  height: 1000px;
+  &__input-agenda-name{
+    width: 100%;
+    height: 50px;
+    border: solid 1px #C8EFEA;
+    border-left: solid 3px #009F8C;
+    // margin: 0 30px;
+    padding: 0 10px;
+    box-shadow: inset 3px 5px 9px -6px rgba(0,0,0,0.5);
+    box-sizing: border-box;
+    &:focus{
+      outline: 0;
+      border: solid 1px #40BFB0;
+      border-left: solid 3px #009F8C;
+      box-shadow: 0 0 5px #40BFB0;
+    }
+  }
+  &__input-candidate-name{
+    width: 60%;
+    height: 50px;
+    border: solid 1px #C8EFEA;
+    border-left: solid 3px #009F8C;
+    padding: 0 10px;
+    margin-bottom: 30px;
+    box-shadow: inset 3px 5px 9px -6px rgba(0,0,0,0.5);
+    &:focus{
+      outline: 0;
+      border: solid 1px #40BFB0;
+      border-left: solid 3px #009F8C;
+      box-shadow: 0 0 5px #40BFB0;
+    }
+  }
+  &__input-candidate-message{
+    width: 90%;
+    height: 50px;
+    border: solid 2px #C8EFEA;
+    border-left: solid 3px #009F8C;
+    // border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 30px;
+
+    transition: 0.2s;
+    &:focus{
+      height:120px;
+      outline: 0;
+      border: solid 1px #40BFB0;
+      box-shadow: 0 0 5px #40BFB0;
+      border-left: solid 3px #009F8C;
+    }
+  }
+  &__submit{
+    width: 120px;
+    height: 50px;
+    background-color: white;
+    color: $mainColor;
+    text-align: center;
+    line-height: 50px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border: solid 1px $mainColor;
+    border-left: solid 10px $mainColor;
+    outline: none;
+    padding: 0;
+    appearance: none;
+    position: relative;
+    &:hover span{
+      position: relative;
+      color: white;
+      z-index: 1;
+    }
+    &::before{
+      content: "";
+      display: inline-block;
+      background-color: $mainColor;
+      height: 100%;
+      width: 0%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      transition: 0.2s;
+    }
+    &:hover:before{
+      width: 100%;
+    }
+  }
+}
+
+.input-candidate-boards{
+  @include candidate-boards-setting();
+  border-radius: 5px;
+}
+
+.input-candidate-board{
+  height: 450px;
+  @include candidate-board-setting();
+  padding: 40px 30px;
+  box-sizing: border-box;
+  background-color: rgba(#C8EFEA,0.7);
+  box-shadow: none;
+  // border: solid 1px #009F8C;
+}

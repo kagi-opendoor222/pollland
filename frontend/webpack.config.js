@@ -2,7 +2,7 @@ const path = require("path");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 
 module.exports = {
-  entry: path.resolve(__dirname, "./src/app.js"),
+  entry: path.resolve(__dirname, "./src/index.js"),
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "bundle.js"
@@ -27,6 +27,18 @@ module.exports = {
             loader: "html-loader"
           }
         ]
+      },
+      {
+        test: /\.(sass|scss|css)$/,
+        exclude: /node_modules/,
+        use: [
+          "style-loader",
+          {
+            loader: "css-loader",
+            options: {url: false}
+          },
+          "sass-loader"
+        ]
       }
     ]
   },
@@ -35,6 +47,7 @@ module.exports = {
     port: 3000,
     inline: true,
     host: "0.0.0.0",
+    historyApiFallback: true,
     // proxy: {
     //   '/api': {
     //       target: 'http://localhost:4000', // local api server
