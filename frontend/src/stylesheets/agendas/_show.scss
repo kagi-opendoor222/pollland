@@ -57,14 +57,14 @@
           transition: 0.5s;
           height: 25px;
           position: relative;
-          .score{
-            font-size: 2rem;
-            position: absolute;
-            right: 0px;
-            bottom: -23px;
-            text-shadow:#232232 1px 1px 0px, #232232 1px 1px 0px,
-            #232232 1px 1px 0px, #232232 1px 1px 0px;
-          }
+        }
+        .score{
+          font-size: 2rem;
+          position: absolute;
+          right: 0px;
+          bottom: -23px;
+          text-shadow:#232232 1px 1px 0px, #232232 1px 1px 0px,
+          #232232 1px 1px 0px, #232232 1px 1px 0px;
         }
       }
     }

@@ -21,18 +21,29 @@ export const Comments = () => {
  * CandidateBoardの中でも画像カードの部分
  * 
  * @param {*} props 
- *   @param {object} candidate : { id, message, name, created_at, updated_at, agenda_id }
+ *   @param {object} candidate
+ *    : { id, message, name, created_at, updated_at, agenda_id,
+ *        vote_count, vote_ratio, countUpState_vote_ratio }
  */
 export const CandidateImagePanel = (props) => {
-  const candidateId = props.id
+  const candidateId = props.id;
+  const barWidth = (30 + props.countUpState_vote_ratio) * 0.5
+  const barStyle = {
+    "background": "linear-gradient(#40BFB0, #009F8C)",
+    "border": "solid 1px white",
+    "width": (barWidth + "%"),
+    "transition": "0.7s",
+    "height": "25px",
+    "position": "relative"
+  }
   return(
     <React.Fragment>
       <img src={props.image_url} className="candidate-image"/>
       <div className="candidate-detail">
         <div className="candidate-detail__title">{props.name}</div>
         <div className="candidate-detail__bar-graph">
-          <div className="bar">
-            <div className="score">{ props.vote_ratio }%</div>
+          <div className="bar" style={barStyle}>
+            <div className="score">{ props.countUpState_vote_ratio }%</div>
           </div>
         <form 
           className="poll-form"
