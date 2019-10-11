@@ -31,6 +31,13 @@ module Backend
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
+
+
+    config.middleware.use Rack::MethodOverride
+    config.middleware.use ActionDispatch::Cookies
+    config.middleware.use ActionDispatch::Session::CookieStore
+    config.middleware.use ActionDispatch::Flash
+
     config.x.cors_allowed_origins = ENV.fetch('CORS_ALLOWED_ORIGINS', [ "localhost:3000"] )
     # rack-corsここから
     config.middleware.insert_before 0, Rack::Cors do
@@ -40,6 +47,7 @@ module Backend
         # 許可するヘッダとメソッドの種類
         resource "*",
                  headers: :any,
+                 :expose => ['access-token', 'expiry', 'token-type', 'uid', 'client'],
                  methods: [:get, :post, :patch, :delete, :head, :options]
       end
     end
