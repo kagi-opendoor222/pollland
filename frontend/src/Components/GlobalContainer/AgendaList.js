@@ -64,12 +64,22 @@ class AgendaList extends React.Component{
     this.state = {
       agendaList: [],
       candidateList: [],
-      agendaPackages: []
+      agendaPackages: [],
+      currentUser: this.props.user
     }
   }
   componentDidMount(){
     this._isMounted = true
     this.setStateFromAPI() 
+  }
+  componentDidUpdate(){
+    if(this.props.user.uid !== this.state.currentUser.uid){
+      this.setState(
+        {currentUser: this.props.user},
+        this.setStateFromAPI
+      )
+     
+    }
   }
   componentWillUnmount() {
     this._isMounted = false
@@ -108,8 +118,15 @@ class AgendaList extends React.Component{
 
    //TODO: もっとキレイに書きたい
   setStateFromAPI(){
+    const user = this.state.currentUser
     const url = "http://localhost:4000/agendas"
-    axios.get(url).then(response => {
+    const headers = {
+      access_token: user.auth_token,
+      client: user.client_id,
+      expiry: user.expiry,
+      uid: user.uid
+    }
+    axios.get(url,{headers: headers}).then(response => {
       if(this._isMounted){
         const agendaList = JSON.parse(response.data.agendaList)
         const candidateList = JSON.parse(response.data.candidateList)
@@ -124,7 +141,6 @@ class AgendaList extends React.Component{
   }
   render(){
     let agendaCards
-    
     if(this.state.agendaPackages){
       agendaCards = this.state.agendaPackages.map((agendaPackage, i)=>{
         return <AgendaCard {...agendaPackage} key={i}/>

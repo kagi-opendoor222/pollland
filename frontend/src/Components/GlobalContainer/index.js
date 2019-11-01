@@ -3,7 +3,8 @@ import UserDashBoard from "./UserDashBoard";
 import AgendaList from "./AgendaList";
 import { BrowserRouter as Router, Link } from "react-router-dom";
 
-const GlobalContainer = ()=>{
+const GlobalContainer = (props)=>{
+  console.log("aaa", props.user)
   return(
     <div className="contents-container">
       <UserDashBoard />
@@ -15,7 +16,7 @@ const GlobalContainer = ()=>{
           </Link>
         </div>
         <div className="main-content-board">
-          <AgendaList />
+          <AgendaList user={props.user}/>
         </div>
       </div>
     </div>

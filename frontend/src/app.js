@@ -7,6 +7,30 @@ import AgendaBoard from "./Components/AgendaBoard";
 import PostAgendaForm from "./Components/PostAgendaForm";
 
 class App extends React.Component {
+  constructor(props){
+    super(props)
+    this.state = {
+      currentUser: {
+        auth_token: "",
+        client_id: "",
+        expiry: "",
+        uid: ""
+      }
+    }
+  }
+  componentDidMount(){
+    const params = this.getParamsFromURL()
+    //XXX: ディープコピーじゃないけど大丈夫？
+    //更新時バグらない？
+    this.setState({
+      currentUser: {
+        auth_token: params.auth_token,
+        client_id: params.client_id,
+        expiry: params.expiry,
+        uid: params.uid
+      }
+    })
+  }
   toStringForUrl(obj){
     const keys = Object.keys(obj)
     const queryParamsStr =  keys.reduce((accumulator, key)=>{
@@ -20,14 +44,31 @@ class App extends React.Component {
     const paramsForUrl = this.toStringForUrl(params)
     location.href = url + "?"+ paramsForUrl
   }
+  getParamsFromURL(){
+    const urlParamsStr = window.location.search.substring(1)
+    let params = {}
+    urlParamsStr.split("&").forEach(param => {
+      const key = param.split("=")[0]
+      const value = param.split("=")[1]
+      params = {
+        ...params,
+        [key]: value
+      }
+    })
+    return params
+  }
   render(){
     return(
       <Router>
         <Header />
         <div className="page-container">
-          <Link onClick={()=>this.loginByOmniAuth("twitter")}>Login by Twitter</Link>
+          <Link to="" onClick={()=>this.loginByOmniAuth("twitter")}>Login by Twitter</Link>
           <Switch>
-            <Route exact path="/" component={GlobalContainer} />
+            <Route exact path="/"
+                         render={() => 
+                           <GlobalContainer user={this.state.currentUser} 
+                         />}
+            />
             <Route path="/agendas/new" component={PostAgendaForm} />
             <Route path="/agendas/:id" component={AgendaBoard} />
           </Switch>
