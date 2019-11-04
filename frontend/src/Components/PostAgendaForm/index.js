@@ -103,9 +103,7 @@ export const InputCandidateBoards = (props)=>{
     form: {
         agenda: {
             name: {elementType: string;
-                elementConfig: {
-                  ...;
-                };
+                elementConfig: {...;};
                 label: string;
                 value: string;
                 };
@@ -113,18 +111,12 @@ export const InputCandidateBoards = (props)=>{
         candidate: {
             name: {
                 elementType: string;
-                elementConfig: {
-                    ...;
-                };
+                elementConfig: {...;};
                 label: string;
                 value: string;
             };
-            message: {
-                ...;
-                };
-            image: {
-                ...;
-            };
+            message: {...;};
+            image: {...;};
         }[];
     };
 }
@@ -199,7 +191,16 @@ class PostAgendaForm extends React.Component{
       form: {
         agenda: agendaConfig,
         candidate: candidateConfigs
-      }
+      },
+      currentUser: this.props.user
+    }
+  }
+
+  componentDidUpdate(){
+    if(this.props.user.uid !== this.state.currentUser.uid){
+      this.setState({
+        currentUser: this.props.user
+      })
     }
   }
 
@@ -262,6 +263,7 @@ class PostAgendaForm extends React.Component{
   handleSubmit(e){
     e.preventDefault();
     let data = this.prettyfyFormData(this.state.form)
+    const user = this.state.currentUser
     const url = "http://localhost:4000/agendas"
     axios.post(url,data,{
     }).then(res => {

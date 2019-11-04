@@ -69,7 +69,11 @@ class App extends React.Component {
                            <GlobalContainer user={this.state.currentUser} 
                          />}
             />
-            <Route path="/agendas/new" component={PostAgendaForm} />
+            <Route path="/agendas/new" 
+                   render={()=>
+                    <PostAgendaForm user={this.state.currentUser} />
+                   }
+            />
             <Route path="/agendas/:id" component={AgendaBoard} />
           </Switch>
         </div>
