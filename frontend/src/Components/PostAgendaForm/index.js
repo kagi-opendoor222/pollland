@@ -260,18 +260,28 @@ class PostAgendaForm extends React.Component{
   }
 
 
-  handleSubmit(e){
+  handleSubmit(e, props){
     e.preventDefault();
-    let data = this.prettyfyFormData(this.state.form)
     const user = this.state.currentUser
     const url = "http://localhost:4000/agendas"
-    axios.post(url,data,{
-    }).then(res => {
-      this.props.history.push('/')
-    })
-
+    let data = this.prettyfyFormData(this.state.form)
+    const headers = {
+      access_token: user.auth_token,
+      client: user.client_id,
+      expiry: user.expiry,
+      uid: user.uid
+    }
+    axios.post(url, data, {headers: headers})
+      .then(res => {
+        console.log("せいこう!")
+        console.log(res)
+        this.props.history.push('/')
+      })
+      .catch((err)=>{
+        console.log("エラー!")
+        this.props.handleAddFlash(err.response.data.errors)
+      })
   }
-
 
   setFileToFormData(formData, candidateNo, column){
     let reader = new FileReader();
@@ -319,7 +329,7 @@ class PostAgendaForm extends React.Component{
         <div className="agenda-title">
           投票テーマ作成フォーム
         </div>
-        <form className="agenda-create-form" onSubmit={this.handleSubmit} encType="multipart/form-data">
+        <form className="agenda-create-form" onSubmit={(e) => this.handleSubmit(e, this.props)} encType="multipart/form-data">
           <Input
             {...agendaNameConfig} 
             onChange={(event, name) => this.handleInputChange(event, name)}

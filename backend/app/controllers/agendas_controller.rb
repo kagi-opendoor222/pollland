@@ -1,4 +1,5 @@
 class AgendasController < ApplicationController
+  before_action :authenticate_user!, only: [:new, :create]
   def index
     @agendas = Agenda.all
     @candidates = @agendas.map{|agenda|
@@ -13,20 +14,27 @@ class AgendasController < ApplicationController
     @agenda = Agenda.new
   end
   def create
-    agenda = Agenda.create(agenda_params)
-    candidate = []
-    params[:candidate].length.times do |i|
-      candidate[i] = agenda.candidates.create(candidate_params(i))
-      candidate[i].parse_base64(params[:candidate][i][:image])
+    agenda = Agenda.new(agenda_params)
+    if agenda.save
+      candidate = []
+      params[:candidate].length.times do |i|
+        candidate[i] = agenda.candidates.create(candidate_params(i))
+        candidate[i].parse_base64(params[:candidate][i][:image])
+      end
+      render json: { 
+        message: 'さくせす！',
+        data: {
+          agenda: agenda,
+          candidate: candidate
+        }
+      }, status: :ok
+      return
+    else
+      render json: {
+        errors: agenda.errors.full_messages,
+      },  status: :bad_request
+      return
     end
-    render json: { 
-      status: 'SUCCESS',
-      message: 'さくせす！',
-      data: {
-        agenda: agenda,
-        candidate: candidate
-      }
-    }
   end
   def show
     @agenda = Agenda.find(params[:id])
