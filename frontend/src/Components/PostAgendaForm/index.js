@@ -273,13 +273,13 @@ class PostAgendaForm extends React.Component{
     }
     axios.post(url, data, {headers: headers})
       .then(res => {
-        console.log("せいこう!")
-        console.log(res)
         this.props.history.push('/')
       })
       .catch((err)=>{
-        console.log("エラー!")
-        this.props.handleAddFlash(err.response.data.errors)
+        err.response.data.errors.forEach((message) =>{
+          this.props.handleAddFlash({text: message, type: "error"})
+        })
+  
       })
   }
 
