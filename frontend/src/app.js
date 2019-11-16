@@ -8,6 +8,13 @@ import AgendaBoard from "./Components/AgendaBoard";
 import PostAgendaForm from "./Components/PostAgendaForm";
 
 
+const PrivateRoute = (props) => {
+  return(
+    props.isLoggedIn ? 
+      <Route path={props.path} render={props.render} {...props} /> :
+      <div>ログインユーザー専用ページです</div>
+  )
+}
 
 const FlashMessageContainer = (props) =>{
 
@@ -199,9 +206,17 @@ class App extends React.Component {
             <Route exact path="/">
               <GlobalContainer user={this.state.currentUser} handleAddFlash={this.handleAddFlash} />
             </Route>
-            <Route path="/agendas/new">
-              <PostAgendaForm user={this.state.currentUser} handleAddFlash={this.handleAddFlash} />
-            </Route>
+            <PrivateRoute
+              path="/agendas/new"
+              isLoggedIn={this.isLoggedIn()}
+              render={(props) => (
+                <PostAgendaForm 
+                  user={this.state.currentUser}
+                  handleAddFlash={this.handleAddFlash}
+                  {...props} 
+                />
+              )}
+            />
             <Route path="/agendas/:id" component={AgendaBoard} handleAddFlash={this.handleAddFlash}/>
           </Switch>
         </div>
