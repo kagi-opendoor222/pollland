@@ -217,7 +217,12 @@ class App extends React.Component {
                 />
               )}
             />
-            <Route path="/agendas/:id" component={AgendaBoard} handleAddFlash={this.handleAddFlash}/>
+            <Route 
+              path="/agendas/:id"
+              render={props => (
+                 <AgendaBoard handleAddFlash={this.handleAddFlash} {...props}/>
+              )} 
+            />
           </Switch>
         </div>
       </Router>
