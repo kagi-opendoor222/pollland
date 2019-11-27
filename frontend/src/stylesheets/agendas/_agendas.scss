@@ -53,9 +53,9 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      border: solid 1px $mainColor;
-      border-left: solid 10px $mainColor;
-      color: $mainColor;
+      border: solid 1px $mainColorAccent;
+      border-left: solid 10px $mainColorAccent;
+      color: $mainColorAccent;
       font-size: 1rem;
       font-weight: bold;
       text-decoration: none;
@@ -66,7 +66,7 @@
       }
       &::before{
         content: "";
-        background-color: $mainColor;
+        background-color: $mainColorAccent;
         height: 100%;
         width: 0%;
         transition: 0.2s;
