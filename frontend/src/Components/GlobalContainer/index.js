@@ -25,11 +25,15 @@ const PrivateLink = (props) =>{
 const GlobalContainer = (props)=>{
   return(
     <div className="contents-wrapper">
-      <div className="header-content">
+      <div className="header-contents">
+        <div className="">
+          POLLANDは小数派・多数派関係なく、皆で仲良く楽しめる投票サービスです。<br />
+          早速投票を作成し、SNSで共有しましょう！
+        </div>
         <SocialButton loginByOmniAuth={props.loginByOmniAuth} social="twitter" />
       </div>
       <div className="contents-container">
-        <UserDashBoard />
+        {/* <UserDashBoard /> */}
         <div className="main-content">
           <div className="main-content-top">
             <h2>投票</h2>
