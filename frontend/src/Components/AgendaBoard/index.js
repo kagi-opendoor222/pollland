@@ -87,7 +87,6 @@ class AgendaBoard extends React.Component{
     axios.post(
       url, data
     ).then(response =>{
-      console.log(response.data)
       const newCandidate = JSON.parse(response.data.candidate)
       const newCandidates = JSON.parse(response.data.candidates)
       const candidates = this.state.candidates
@@ -97,6 +96,11 @@ class AgendaBoard extends React.Component{
           candidate.vote_ratio = newCandidates[i].vote_ratio
       })
       this.setState({candidates: candidates})
+    }).catch(err => {
+      console.log(err.response.data.errors)
+      err.response.data.errors.forEach(message => {
+        this.props.handleAddFlash({text: message, type: "error"})
+      })
     })
   }
   

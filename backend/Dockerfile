@@ -12,3 +12,6 @@ COPY Gemfile Gemfile.lock ./
 RUN bundle install
 
 COPY ./ ./
+
+RUN apt-get install -y vim
+
