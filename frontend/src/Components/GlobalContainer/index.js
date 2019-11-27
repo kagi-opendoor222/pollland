@@ -1,6 +1,8 @@
 import React from "react";
 import UserDashBoard from "./UserDashBoard";
 import AgendaList from "./AgendaList";
+import SocialButton from "../Shared/SocialButton"
+
 import { BrowserRouter as Router, Link } from "react-router-dom";
 
 
@@ -22,17 +24,22 @@ const PrivateLink = (props) =>{
 
 const GlobalContainer = (props)=>{
   return(
-    <div className="contents-container">
-      <UserDashBoard />
-      <div className="main-content">
-        <div className="main-content-top">
-          <h2>投票</h2>
-          <PrivateLink to="/agendas/new" className="main-content-top__post-agenda-button" user={props.user} handleAddFlash={props.handleAddFlash} >
-            <span>テーマを投稿</span>
-          </PrivateLink>
-        </div>
-        <div className="main-content-board">
-          <AgendaList user={props.user}/>
+    <div className="contents-wrapper">
+      <div className="header-content">
+        <SocialButton loginByOmniAuth={props.loginByOmniAuth} social="twitter" />
+      </div>
+      <div className="contents-container">
+        <UserDashBoard />
+        <div className="main-content">
+          <div className="main-content-top">
+            <h2>投票</h2>
+            <PrivateLink to="/agendas/new" className="main-content-top__post-agenda-button" user={props.user} handleAddFlash={props.handleAddFlash} >
+              <span>テーマを投稿</span>
+            </PrivateLink>
+          </div>
+          <div className="main-content-board">
+            <AgendaList user={props.user}/>
+          </div>
         </div>
       </div>
     </div>

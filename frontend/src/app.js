@@ -215,7 +215,6 @@ class App extends React.Component {
       <Router>
         <Header />
         <div className="page-container">
-          <SocialButton loginByOmniAuth={this.loginByOmniAuth} social="twitter" />
           <FlashMessageContainer 
             messages={this.state.flashMessages}
             handleDeleteFlash={this.handleDeleteFlash}
