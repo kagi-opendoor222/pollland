@@ -23,14 +23,14 @@
   
 
 
-  &__message{
+  &__bar{
     background-color: rgba(white ,0.9);
     box-shadow: 1px 1px 2px;
     
     font-size: 22px;
     margin-bottom: 10px;
 
-    padding: 15px 10px 5px 25px;
+    padding: 15px 20px 5px 25px;
 
     animation-name: slideInRight;
     animation-duration: 0.5s;
@@ -42,6 +42,14 @@
     // color: #ff6675;
   }
   .notice{
-    border-bottom: solid 3px #5EC84E;;
+    border-bottom: solid 3px #5EC84E;
+  }
+  // &__message{
+  //   // padding: 0 0 20px;
+  // }
+  &__option{
+    padding: 20px 0 5px;
+    display: flex;
+    justify-content: flex-end;
   }
 }

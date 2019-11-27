@@ -7,6 +7,7 @@ import Header from "./Components/Header";
 import AgendaBoard from "./Components/AgendaBoard";
 import PostAgendaForm from "./Components/PostAgendaForm";
 
+import SocialButton from "./Components/Shared/SocialButton"
 
 const PrivateRoute = (props) => {
   return(
@@ -23,8 +24,22 @@ const FlashMessageContainer = (props) =>{
   }
 
   const messagesContainer = props.messages.map((message, index)=>{
-    const className = `flash-message-container__message ${message.type}`
-    return <li className={className} key={index}>{message.text}</li>
+    let option
+    if(message.text.match(/続けるにはログインが必要です|You need to sign in or sign up before continuing./)){
+      option = (
+        <div className="flash-message-container__option">
+          <SocialButton loginByOmniAuth={props.loginByOmniAuth} social="twitter" />
+        </div>
+      )
+    }
+    return (
+      <li className={`flash-message-container__bar ${message.type}`} key={index}>
+        <div className="flash-message-container__message">
+          {message.text} 
+        </div>
+        {option}
+      </li>
+    )
   })
 
   return(
@@ -36,6 +51,8 @@ const FlashMessageContainer = (props) =>{
 
 
 
+
+
 class App extends React.Component {
   constructor(props){
     super(props)
@@ -43,6 +60,7 @@ class App extends React.Component {
     this.handleDeleteFlash = this.handleDeleteFlash.bind(this)
     this.isLoggedIn = this.isLoggedIn.bind(this)
     this.setUserOnCookie = this.setUserFromCookie.bind(this)
+    this.loginByOmniAuth = this.loginByOmniAuth.bind(this)
     this.state = {
       currentUser: {
         auth_token: "",
@@ -197,14 +215,19 @@ class App extends React.Component {
       <Router>
         <Header />
         <div className="page-container">
+          <SocialButton loginByOmniAuth={this.loginByOmniAuth} social="twitter" />
           <FlashMessageContainer 
             messages={this.state.flashMessages}
             handleDeleteFlash={this.handleDeleteFlash}
+            loginByOmniAuth={this.loginByOmniAuth}
           />
-            <Link to="" onClick={()=>this.loginByOmniAuth("twitter")}>Login by Twitter</Link>
           <Switch>
             <Route exact path="/">
-              <GlobalContainer user={this.state.currentUser} handleAddFlash={this.handleAddFlash} />
+              <GlobalContainer
+                user={this.state.currentUser}
+                handleAddFlash={this.handleAddFlash}
+                loginByOmniAuth={this.loginByOmniAuth}
+              />
             </Route>
             <PrivateRoute
               path="/agendas/new"

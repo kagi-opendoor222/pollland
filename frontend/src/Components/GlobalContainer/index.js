@@ -3,6 +3,7 @@ import UserDashBoard from "./UserDashBoard";
 import AgendaList from "./AgendaList";
 import { BrowserRouter as Router, Link } from "react-router-dom";
 
+
 const PrivateLink = (props) =>{
   let linkComponent
   if(props.user.isLoggedIn()){
@@ -10,7 +11,7 @@ const PrivateLink = (props) =>{
                       {props.children}
                     </Link>
   }else{
-    linkComponent = <Link to={""} className={props.className} onClick={() => props.handleAddFlash({text: "ログインが必要です", type: "error"})}> 
+    linkComponent = <Link to={""} className={props.className} onClick={() => props.handleAddFlash({text: "続けるにはログインが必要です", type: "error"})}> 
                       {props.children}
                     </Link>
   }
