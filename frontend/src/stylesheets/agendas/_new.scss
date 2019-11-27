@@ -1,8 +1,18 @@
+
+.agenda-title{
+  background-color: white;
+  color: $normalCharaColor;
+  // box-shadow: 1px 1px 2px;
+  font-size: 1.3rem;
+  border-left: solid 10px $mainColor;
+  box-sizing: border-box;
+  margin: 30px auto;
+  padding: 5px 20px;
+}
+
 .agenda-create-form{
   margin: 70px auto;
-  width: $basePageWidth;
   // background-color: white;
-  height: 1000px;
   &__input-agenda-name{
     width: 100%;
     height: 50px;

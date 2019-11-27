@@ -214,7 +214,7 @@ class App extends React.Component {
     return(
       <Router>
         <Header />
-        <div className="page-container">
+        <div className="page-container inner">
           <FlashMessageContainer 
             messages={this.state.flashMessages}
             handleDeleteFlash={this.handleDeleteFlash}

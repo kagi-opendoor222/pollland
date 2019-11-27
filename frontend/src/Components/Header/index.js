@@ -3,8 +3,8 @@ import SocialButton from "../Shared/SocialButton"
 
 const Header = ()=>{
   return(
-    <div id="header" >
-      <h1>POLLLAND</h1>
+    <div id="header">
+      <h1 className="inner">POLLLAND</h1>
     </div>
   )
 }
