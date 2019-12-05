@@ -2,6 +2,7 @@ import React from "react";
 import UserDashBoard from "./UserDashBoard";
 import AgendaList from "./AgendaList";
 import SocialButton from "../Shared/SocialButton"
+import { CSSTransition } from 'react-transition-group';
 
 import { BrowserRouter as Router, Link } from "react-router-dom";
 
