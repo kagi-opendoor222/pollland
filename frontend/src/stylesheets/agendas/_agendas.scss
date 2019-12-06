@@ -5,7 +5,7 @@
 
 
 .contents-wrapper{
-  padding: 30px 0;
+  padding: $pageTopSpace 0;
   height: calc(100vh - 165px);
   overflow: scroll;
   -ms-overflow-style: none;    /* IE, Edge 対応 */
@@ -148,8 +148,17 @@
   // border: solid 3px $headerAccent;
   // box-shadow: 1px 1px 2px;
   margin-bottom: 35px;
-  width: 49%;
+  width: 100%;
   position: relative;
+  @include mq(sm){
+    width: 49%;
+  }
+  @include mq(md){
+    width: 49%;
+  }
+  @include mq(lg){
+    width: 49%;
+  }
   &__img-box{
     height: 175px;
     overflow: hidden;

@@ -45,12 +45,21 @@ body{
 }
 
 .page-container{
-  padding: 100px 0 5px;
+  padding: $pageTopSpace 0 5px;
 }
 
 .inner{
-  width: 70vw;
   margin: 0 auto;
+  width: 90vw;
+  @include mq(sm){
+    width: 90vw;
+  }
+  @include mq(md){
+    width: 85vw;
+  }
+  @include mq(lg){
+    width: 70vw;
+  }
 }
 
 

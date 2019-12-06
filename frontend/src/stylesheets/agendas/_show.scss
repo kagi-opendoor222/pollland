@@ -6,7 +6,6 @@
 
 .candidate-board{
   @include candidate-board-setting();
-  min-width: 300px;
   .candidate-board-top{
     position: relative;
     height: 300px;
