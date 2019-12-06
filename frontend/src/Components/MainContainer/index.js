@@ -23,7 +23,8 @@ const PrivateLink = (props) =>{
   )
 }
 
-const GlobalContainer = (props)=>{
+const MainContainer = (props)=>{
+  console.log("maincontainer")
   return(
     <div className="contents-wrapper">
       <div className="header-contents">
@@ -51,4 +52,4 @@ const GlobalContainer = (props)=>{
   )
 }
 
-export default GlobalContainer
+export default MainContainer

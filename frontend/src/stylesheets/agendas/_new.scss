@@ -4,7 +4,7 @@
   color: $normalCharaColor;
   // box-shadow: 1px 1px 2px;
   font-size: 1.3rem;
-  border-left: solid 10px $mainColor;
+  border-left: solid 10px $mainColorAccent;
   box-sizing: border-box;
   margin: 30px auto;
   padding: 5px 20px;
@@ -17,15 +17,15 @@
     width: 100%;
     height: 50px;
     border: solid 1px #C8EFEA;
-    border-left: solid 3px #009F8C;
+    border-left: solid 3px $mainColorAccent;
     // margin: 0 30px;
     padding: 0 10px;
     box-shadow: inset 3px 5px 9px -6px rgba(0,0,0,0.5);
     box-sizing: border-box;
     &:focus{
       outline: 0;
-      border: solid 1px #40BFB0;
-      border-left: solid 3px #009F8C;
+      border: solid 1px $mainColor;
+      border-left: solid 3px $mainColorAccent;
       box-shadow: 0 0 5px #40BFB0;
     }
   }
@@ -33,14 +33,14 @@
     width: 60%;
     height: 50px;
     border: solid 1px #C8EFEA;
-    border-left: solid 3px #009F8C;
+    border-left: solid 3px $mainColorAccent;
     padding: 0 10px;
     margin-bottom: 30px;
     box-shadow: inset 3px 5px 9px -6px rgba(0,0,0,0.5);
     &:focus{
       outline: 0;
       border: solid 1px #40BFB0;
-      border-left: solid 3px #009F8C;
+      border-left: solid 3px $mainColorAccent;
       box-shadow: 0 0 5px #40BFB0;
     }
   }
@@ -48,7 +48,7 @@
     width: 90%;
     height: 50px;
     border: solid 2px #C8EFEA;
-    border-left: solid 3px #009F8C;
+    border-left: solid 3px $mainColorAccent;
     // border-radius: 10px;
     padding: 10px;
     margin-bottom: 30px;
@@ -59,7 +59,7 @@
       outline: 0;
       border: solid 1px #40BFB0;
       box-shadow: 0 0 5px #40BFB0;
-      border-left: solid 3px #009F8C;
+      border-left: solid 3px $mainColorAccent;
     }
   }
   &__submit{

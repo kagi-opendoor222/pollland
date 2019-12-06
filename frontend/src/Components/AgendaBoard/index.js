@@ -84,8 +84,15 @@ class AgendaBoard extends React.Component{
     e.preventDefault()
     const data = {candidate_id: candidateId}
     const url = "http://localhost:4000/votes"
+    const user = this.props.user
+    const headers = {
+      access_token: user.auth_token,
+      client: user.client_id,
+      expiry: user.expiry,
+      uid: user.uid
+    }
     axios.post(
-      url, data
+      url, data,  {headers: headers}
     ).then(response =>{
       const newCandidate = JSON.parse(response.data.candidate)
       const newCandidates = JSON.parse(response.data.candidates)
@@ -109,7 +116,7 @@ class AgendaBoard extends React.Component{
     const candidates = this.state.candidates;
     const name = agenda.name;
     return(
-      <React.Fragment>
+      <div>
         <div className="agenda-title">
           {name}
         </div>
@@ -120,7 +127,7 @@ class AgendaBoard extends React.Component{
             handleVote={(e, candidateId) => this.handleVote(e, candidateId)}
           />
         </div>
-      </React.Fragment>
+      </div>
     )
   }
 }

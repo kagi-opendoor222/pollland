@@ -6,14 +6,18 @@
 
 .contents-wrapper{
   padding: 30px 0;
-  // background-color: white;
-  // background-color: rgba($topBackground, 0.85);
+  height: calc(100vh - 165px);
+  overflow: scroll;
+  -ms-overflow-style: none;    /* IE, Edge 対応 */
+  scrollbar-width: none;       /* Firefox 対応 */
 }
-
-.contents-container{
-  // display:         flex;
-  // justify-content: center;
+.contents-wrapper::-webkit-scrollbar {  /* Chrome, Safari 対応 */
+  display: none;
 }
+// .contents-container{
+//   height: 100vh;
+//   overflow: hidden;
+// }
 
 .header-contents{
   margin-bottom: 20px;
@@ -145,7 +149,7 @@
   // box-shadow: 1px 1px 2px;
   margin-bottom: 35px;
   width: 49%;
-  // position: relative;
+  position: relative;
   &__img-box{
     height: 175px;
     overflow: hidden;
