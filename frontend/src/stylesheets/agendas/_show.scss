@@ -60,8 +60,11 @@
   .candidate-board-bottom{
     background-color: white;
     color: $normalCharaColor;
+    padding: 20px;
+    // .message{
+    //   height: 100px
+    // }
     .comments{
-      padding: 20px;
       .comment{
         min-height: 100px;
         background-color: #C8EFEA;

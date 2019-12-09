@@ -6,7 +6,7 @@ class AgendasController < ApplicationController
        agenda.candidates.to_a
       }.flatten
     render json: {
-      agendaList: @agendas.to_json,
+      agendaList: Agenda.to_json_with_data(@agendas),
       candidateList: Candidate.to_json_with_data(@candidates)
     }
   end
@@ -40,14 +40,14 @@ class AgendasController < ApplicationController
     @agenda = Agenda.find(params[:id])
     @candidates = @agenda.candidates
     render json:{
-      agenda: @agenda.to_json,
+      agenda: Agenda.to_json_with_data(@agenda),
       candidates: Candidate.to_json_with_data(@candidates)
     }
   end
   private
   def agenda_params
     #TODO: 正式なuser_idの値を設定する
-    params.require(:agenda).permit(:name).merge({user_id: 1})
+    params.require(:agenda).permit(:name).merge({user_id: current_user.id})
   end
   def candidate_params(i)
     params.require(:candidate)[i].permit(:name, :message)

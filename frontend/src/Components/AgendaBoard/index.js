@@ -35,6 +35,7 @@ class AgendaBoard extends React.Component{
     const agendaId = this.state.id
     const url = `http://localhost:4000/agendas/${agendaId}`
     axios.get(url).then(response =>{
+
       const agenda = JSON.parse(response.data.agenda);
       const candidates = JSON.parse(response.data.candidates);
       //全てのcandidteの画面に表示されるカウントアップ数値を0にする

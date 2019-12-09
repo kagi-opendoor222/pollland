@@ -1,19 +1,26 @@
 import React from "react";
 
-export const Comments = () => {
+export const Message = (props) =>{
+  return(
+    <div className="message">
+    </div>
+  )
+}
+
+export const Comments = (props) => {
   return(
     <ul className="comments">
-      comments
-      <li className="comment">
-        <div className="comment__message">
-          テストテストテストテストテストテストテストテスト
-        </div>
-        <div className="comment__user">
-          <img src="https://ai-catcher.com/wp-content/uploads/icon_74-1.png" />
-          <p>nickname</p>
-        </div>
-      </li>
-    </ul>
+    MESSAGE
+    <li className="comment">
+      <div className="comment__message">
+        {props.message || "メッセージはありません。"}
+      </div>
+      <div className="comment__user">
+        <img src="https://ai-catcher.com/wp-content/uploads/icon_74-1.png" />
+        <p>{props.userName}</p>
+      </div>
+    </li>
+  </ul>
   )
 }
 
@@ -79,7 +86,8 @@ const CandidateBoards = (props) =>{
           />
         </div>
         <div className="candidate-board-bottom">
-          <Comments />
+          <Message message={candidate.message} />
+          <Comments message={candidate.message} userName = {props.agenda.user_name}/>
         </div>
       </li>
     )

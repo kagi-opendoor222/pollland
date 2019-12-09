@@ -7,7 +7,7 @@ import {BrowserRouter as Router, Link} from "react-router-dom";
  * @param {*} agendaPackage = {...agenda, candidate: [candidate1, candidate2, ...]}
  * 
  *   agenda:
- *     { id, message, name, start_time, end_time, created_at, updated_at, user_id }
+ *     { id, message, name, start_time, end_time, created_at, updated_at, user_id , user_name}
  *   candidate:
  *     { id, message, name, created_at, updated_at, agenda_id }
  */
@@ -34,7 +34,7 @@ const AgendaCard = (props) => {
       </div>
       <div className="agenda-card__user">
         <img src="https://ai-catcher.com/wp-content/uploads/icon_74-1.png" />
-        <p>nickname</p>
+        <p>{props.user_name}</p>
       </div>
     </div>
   )
