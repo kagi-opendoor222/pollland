@@ -5,7 +5,7 @@ const SocialButton = (props) => {
   const social = props.social
   return(
     <Link 
-      to=""
+      to="/login"
       onClick={()=>props.loginByOmniAuth(social)}
       className={`social-btn social-btn-icon btn-${social}`}
       href="#"

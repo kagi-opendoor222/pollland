@@ -1,15 +1,4 @@
 
-.agenda-title{
-  width: $basePageWidth;
-  background-color: white;
-  color: $normalCharaColor;
-  // box-shadow: 1px 1px 2px;
-  font-size: 1.3rem;
-  border-left: solid 10px $mainColor;
-  box-sizing: border-box;
-  margin: 0 auto;
-  padding: 5px 20px;
-}
 
 .candidate-boards{
   @include candidate-boards-setting();
@@ -17,7 +6,6 @@
 
 .candidate-board{
   @include candidate-board-setting();
-  min-width: 300px;
   .candidate-board-top{
     position: relative;
     height: 300px;

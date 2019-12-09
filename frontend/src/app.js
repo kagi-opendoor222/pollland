@@ -1,21 +1,11 @@
 import React from "react";
-import {BrowserRouter as Router, Route, Link, Switch} from "react-router-dom";
+import {BrowserRouter as Router, Route, Link, Switch, withRouter} from "react-router-dom";
 import axios from "axios";
-
-import GlobalContainer from "./Components/GlobalContainer"
+import GlobalContainer from "./Components/GlobalContainer.js"
 import Header from "./Components/Header";
-import AgendaBoard from "./Components/AgendaBoard";
-import PostAgendaForm from "./Components/PostAgendaForm";
-
 import SocialButton from "./Components/Shared/SocialButton"
 
-const PrivateRoute = (props) => {
-  return(
-    props.isLoggedIn ? 
-      <Route path={props.path} render={props.render} {...props} /> :
-      <div>ログインユーザー専用ページです</div>
-  )
-}
+
 
 const FlashMessageContainer = (props) =>{
 
@@ -48,8 +38,6 @@ const FlashMessageContainer = (props) =>{
     </ul>
   )
 }
-
-
 
 
 
@@ -148,6 +136,8 @@ class App extends React.Component {
   isLoggedIn(){
     if(this.state.currentUser.auth_token){
       return this.state.currentUser.auth_token.length > 0 ? true : false
+    }else{
+      return false;
     }
   }
 
@@ -209,44 +199,22 @@ class App extends React.Component {
     this.signIn(userParams)
   }
 
-
   render(){
     return(
       <Router>
         <Header />
-        <div className="page-container">
-          <SocialButton loginByOmniAuth={this.loginByOmniAuth} social="twitter" />
+        <div className="page-container inner">
           <FlashMessageContainer 
             messages={this.state.flashMessages}
             handleDeleteFlash={this.handleDeleteFlash}
             loginByOmniAuth={this.loginByOmniAuth}
           />
-          <Switch>
-            <Route exact path="/">
-              <GlobalContainer
-                user={this.state.currentUser}
-                handleAddFlash={this.handleAddFlash}
-                loginByOmniAuth={this.loginByOmniAuth}
-              />
-            </Route>
-            <PrivateRoute
-              path="/agendas/new"
-              isLoggedIn={this.isLoggedIn()}
-              render={(props) => (
-                <PostAgendaForm 
-                  user={this.state.currentUser}
-                  handleAddFlash={this.handleAddFlash}
-                  {...props} 
-                />
-              )}
-            />
-            <Route 
-              path="/agendas/:id"
-              render={props => (
-                 <AgendaBoard handleAddFlash={this.handleAddFlash} {...props}/>
-              )} 
-            />
-          </Switch>
+          <GlobalContainer 
+            user={this.state.currentUser}
+            handleAddFlash={this.handleAddFlash}
+            loginByOmniAuth={this.loginByOmniAuth}
+            isLoggedIn={this.isLoggedIn()}
+          />
         </div>
       </Router>
     )

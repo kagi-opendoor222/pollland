@@ -2,14 +2,38 @@
   margin-top: 50px;
 
   display: flex;
-  justify-content: space-between;
+  width: 100%;
+  justify-content: center;
   flex-wrap: wrap;
+
+  @include mq(sm){
+    width: 100%;
+    justify-content: center;
+  }
+  @include mq(md){
+    width: 100%;
+    justify-content: space-between;
+  }
+  @include mq(lg){
+    width: 100%;
+    justify-content: space-between;
+  }
 }
 
 @mixin candidate-board-setting{
-  width: 48%;
+  width: 100%;
+  margin-bottom: 30px;
   box-shadow: 1px 1px 2px;
   background-color: white;
+  @include mq(sm){
+    width: 75%;
+  }
+  @include mq(md){
+    width: 49%;
+  }
+  @include mq(lg){
+    width: 49%;
+  }
 }
 
 @mixin sm-user-name-setting{
@@ -24,3 +48,11 @@
   p{
   }
 }
+
+
+@mixin mq($breakpoint: md){
+  @media #{map-get($breakpoints, $breakpoint)}{
+    @content;
+  }
+}
+

@@ -7,9 +7,11 @@ h2{
 }
 
 body{
+    color:  $normalCharaColor;
     background-size: cover;
     background-attachment: fixed;
-    background-color: #EBEDED;
+    background-color: rgba($topBackground, 0.85);
+    min-height: 100vh;
 }
 
 
@@ -26,9 +28,11 @@ body{
   border-bottom: solid 3px $headerAccent;
   transition: 0.5s;
   h1{
-    width: 70%;
-    margin: 0 auto;
     transition: 0.5s;
+  }
+  a{
+    text-decoration: none;
+    color: inherit;
   }
 }
 
@@ -41,6 +45,49 @@ body{
 }
 
 .page-container{
-  background-color: rgba($topBackground, 0.85);
-  padding: 125px 0 5px;
+  padding: $pageTopSpace 0 5px;
+}
+
+.inner{
+  margin: 0 auto;
+  width: 90vw;
+  @include mq(sm){
+    width: 90vw;
+  }
+  @include mq(md){
+    width: 85vw;
+  }
+  @include mq(lg){
+    width: 70vw;
+  }
+}
+
+
+.slide-enter{
+  // opacity: 0;
+  transform: translateX(2000px);
+  position: absolute;
+  @extend .inner;
+}
+
+.slide-enter-active{
+  transition: opacity 1000ms ease-out, transform 1000ms ease-out;
+  // opacity: 1;
+  transform: translateX(0px);
+  position: absolute;
+  @extend .inner;
+}
+.slide-exit {
+  transition: opacity 1000ms ease-in, transform 1000ms ease-in;
+  // opacity: 1;
+  transform: translateX(0px);
+  position: absolute;
+  @extend .inner;
+}
+
+.slide-exit-active {
+  // opacity: 0;
+  transform: translateX(-2000px);
+  position: absolute;
+  @extend .inner;
 }

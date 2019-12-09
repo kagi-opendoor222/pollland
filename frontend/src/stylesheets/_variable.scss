@@ -1,16 +1,48 @@
-$mainColor: #23AC0E;
+$mainColor: #6AD09B;
+$mainColorAccent: #01A14E;
 $supportColor: #EBEDED;
-$lightBlack:  #282e38;
+$lightBlack:  #434A54;
 
 $normalCharaColor: $lightBlack;
 
-$headerAccent: #5EC84E;
+$headerAccent:  $mainColorAccent;
 $topBackground: $supportColor;
-$userDashboard: #5EC84E; 
+$userDashboard: $mainColor; 
 
-$buttonAccentColor: $mainColor;
+$buttonAccentColor: $mainColorAccent;
 // $buttonFloatColor
 
 
 $basePageWidth: 70%;
 $candidateBoardTopHeight: 300px;
+
+$pageTopSpace: 80px;
+
+
+$breakpoints: (
+  'sm': 'screen and (min-width: 480px)',
+  'md': 'screen and (min-width: 896px)',
+  'lg': 'screen and (min-width: 1024px)',
+  'xl': 'screen and (min-width: 1200px)',
+) !default;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
