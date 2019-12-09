@@ -29,7 +29,7 @@ const AgendaCard = (props) => {
       </Link>
       <div className="agenda-card__title">
         <div className="agenda-detail">
-          <div className="agenda-detail__title">なまえ</div>
+            <div className="agenda-detail__title">{props.name}</div>
         </div>
       </div>
       <div className="agenda-card__user">
