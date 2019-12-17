@@ -66,13 +66,13 @@
     width: 120px;
     height: 50px;
     background-color: white;
-    color: $mainColor;
+    color: $mainColorAccent;
     text-align: center;
     line-height: 50px;
     font-size: 1.1rem;
     font-weight: bold;
-    border: solid 1px $mainColor;
-    border-left: solid 10px $mainColor;
+    border: solid 1px $mainColorAccent;
+    border-left: solid 10px $mainColorAccent;
     outline: none;
     padding: 0;
     appearance: none;
@@ -85,7 +85,7 @@
     &::before{
       content: "";
       display: inline-block;
-      background-color: $mainColor;
+      background-color: $mainColorAccent;
       height: 100%;
       width: 0%;
       position: absolute;
