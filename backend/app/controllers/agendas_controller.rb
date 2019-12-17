@@ -1,7 +1,7 @@
 class AgendasController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create]
   def index
-    @agendas = Agenda.all
+    @agendas = Agenda.all.reverse
     @candidates = @agendas.map{|agenda|
        agenda.candidates.to_a
       }.flatten
