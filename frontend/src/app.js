@@ -55,6 +55,7 @@ class App extends React.Component {
         client_id: "",
         expiry: "",
         uid: "",
+        dataBaseId: 0,
         isLoggedIn: this.isLoggedIn
       },
       flashMessages: []
@@ -150,11 +151,14 @@ class App extends React.Component {
     }
     axios.get(url, {headers: headers})
       .then(response => {
+        const data = response.data.data
         this.setState((prevState)=>{
           return {
             currentUser: {
               ...prevState.currentUser,
-              ...params
+              ...params,
+              dataBaseId: data.id,
+
             }
           }
         })

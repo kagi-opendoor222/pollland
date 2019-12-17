@@ -24,6 +24,7 @@ const PrivateLink = (props) =>{
 }
 
 const MainContainer = (props)=>{
+
   return(
     <div className="contents-wrapper">
       <div className="header-contents">

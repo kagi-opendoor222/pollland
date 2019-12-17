@@ -43,6 +43,13 @@ export const CandidateImagePanel = (props) => {
     "height": "25px",
     "position": "relative"
   }
+  let pollButton
+  console.log(props.didVote)
+  if(props.didVote){
+    pollButton = <input type="submit" className="poll-button" value="投票済" disabled/>
+  }else{
+    pollButton = <input type="submit" className="poll-button" value="投票"/>
+  }
   return(
     <React.Fragment>
       <img src={props.image_url} className="candidate-image"/>
@@ -56,7 +63,7 @@ export const CandidateImagePanel = (props) => {
           className="poll-form"
           onSubmit={(e) => props.handleVote(e, candidateId)}
         >
-          <input type="submit" className="poll-button" value="投票"/>
+          {pollButton}
         </form>
         </div>
       </div>
@@ -75,6 +82,9 @@ export const CandidateImagePanel = (props) => {
  */
 const CandidateBoards = (props) =>{
   const candidates = props.candidates
+  const didVote = candidates.some((candidate =>{
+    return candidate.didVote
+  }))
   const list = candidates.map((candidate, i) => {
     return(
       <li className="candidate-board" id="candidate<%= candidate.id %>-board" key={i}>
@@ -82,6 +92,7 @@ const CandidateBoards = (props) =>{
         <div className="candidate-board-top">
           <CandidateImagePanel 
             {...candidate}
+            didVote={didVote}
             handleVote={(e, candidateId) => props.handleVote(e, candidateId)}
           />
         </div>
