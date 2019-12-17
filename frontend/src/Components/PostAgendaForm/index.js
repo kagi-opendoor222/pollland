@@ -329,6 +329,7 @@ class PostAgendaForm extends React.Component{
         <div className="agenda-title">
           投票テーマ作成フォーム
         </div>
+        テーマを決めて、投票を募集しましょう！
         <form className="agenda-create-form" onSubmit={(e) => this.handleSubmit(e, this.props)} encType="multipart/form-data">
           <Input
             {...agendaNameConfig} 

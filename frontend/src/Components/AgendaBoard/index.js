@@ -128,6 +128,7 @@ class AgendaBoard extends React.Component{
         <div className="agenda-title">
           {name}
         </div>
+        選んだ方に投票してみましょう！！
         <div className="contents-container">
           <CandidateBoards 
             agenda={agenda}
