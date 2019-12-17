@@ -43,16 +43,30 @@ export const CandidateImagePanel = (props) => {
     "height": "25px",
     "position": "relative"
   }
+
+  //pollButton
   let pollButton
-  console.log(props.didVote)
   if(props.didVote){
     pollButton = <input type="submit" className="poll-button" value="投票済" disabled/>
   }else{
     pollButton = <input type="submit" className="poll-button" value="投票"/>
   }
+
+  //image
+  let image = props.image_url
+  if(props.image_url.length === 0){
+    switch(props.number){
+      case 0:
+        image = "https://2.bp.blogspot.com/-kkfurG90g6k/U-8GF8K-GCI/AAAAAAAAkys/YPzrhU55IxM/s800/alphabet_character_a.png";
+        break;
+      case 1:
+        image = "https://4.bp.blogspot.com/-7VZ-UQZcLzE/U-8GF3AZt_I/AAAAAAAAky0/XhUaHR8cQfs/s800/alphabet_character_b.png";
+        break;
+    }
+  }
   return(
     <React.Fragment>
-      <img src={props.image_url} className="candidate-image"/>
+      <img src={image} className="candidate-image"/>
       <div className="candidate-detail">
         <div className="candidate-detail__title">{props.name}</div>
         <div className="candidate-detail__bar-graph">
@@ -93,6 +107,7 @@ const CandidateBoards = (props) =>{
           <CandidateImagePanel 
             {...candidate}
             didVote={didVote}
+            number={i}
             handleVote={(e, candidateId) => props.handleVote(e, candidateId)}
           />
         </div>
