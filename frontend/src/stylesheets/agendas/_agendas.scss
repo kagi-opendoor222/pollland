@@ -165,15 +165,15 @@
     display: flex;
     transition: 1s;
     &:hover{
-      height: 250px;
+      //height: 250px;
     }
     li{
       width: 50%;
       height: 100%;
-      transition: 1s;
+      transition: 0.7s;
       object-position: 50% 50%;
       &:hover{
-        width: 90%;
+        width: 60%;
       }
       img{
         width: 100%;
