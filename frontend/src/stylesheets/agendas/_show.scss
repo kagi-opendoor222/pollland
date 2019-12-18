@@ -39,7 +39,7 @@
         width: 100%;
         bottom: 5%;
         .bar{
-          background: linear-gradient(#40BFB0, #009F8C);
+          background: linear-gradient(rgba(#40BFB0, 0.9),rgba(#009F8C, 0.7) );
           border: solid 1px white;
           width: 15%;
           transition: 0.5s;
@@ -51,8 +51,8 @@
           position: absolute;
           right: 0px;
           bottom: -23px;
-          text-shadow:#232232 1px 1px 0px, #232232 1px 1px 0px,
-          #232232 1px 1px 0px, #232232 1px 1px 0px;
+          text-shadow:rgba(#232232, 0.9) 1px 1px 0px, rgba(#232232, 0.9)  1px 1px 0px,
+          rgba(#232232, 0.9)  1px 1px 0px, rgba(#232232, 0.9)  1px 1px 0px;
         }
       }
     }
@@ -96,6 +96,9 @@
     border: solid 1px white;
     text-decoration: none;
     color: white;
+    &:disabled{
+      background-color: rgba(red, 0.7);
+    }
   }
 }
 

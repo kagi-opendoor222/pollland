@@ -36,12 +36,7 @@ export const CandidateImagePanel = (props) => {
   const candidateId = props.id;
   const barWidth = (30 + props.countUpState_vote_ratio) * 0.5
   const barStyle = {
-    "background": "linear-gradient(#40BFB0, #009F8C)",
-    "border": "solid 1px white",
     "width": (barWidth + "%"),
-    "transition": "0.7s",
-    "height": "25px",
-    "position": "relative"
   }
 
   //pollButton
