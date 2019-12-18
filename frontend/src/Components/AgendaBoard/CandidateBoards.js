@@ -41,8 +41,10 @@ export const CandidateImagePanel = (props) => {
 
   //pollButton
   let pollButton
-  if(props.didVote){
-    pollButton = <input type="submit" className="poll-button" value="投票済" disabled/>
+  if(props.didSomeVote){
+    const value = props.didVote ? "投票済" : "未投票"
+    const isChosen = props.didVote ? "chosen" : "not-chosen"
+    pollButton = <input type="submit" className={`poll-button ${isChosen}`} value={value} disabled/>
   }else{
     pollButton = <input type="submit" className="poll-button" value="投票"/>
   }
@@ -59,11 +61,19 @@ export const CandidateImagePanel = (props) => {
         break;
     }
   }
+
+  //nameTag
+
+  let nameTag = props.name.length > 0 ?
+    <div className="candidate-detail__title">{props.name}</div> :
+    <div></div>
+    
+
   return(
     <React.Fragment>
       <img src={image} className="candidate-image"/>
       <div className="candidate-detail">
-        <div className="candidate-detail__title">{props.name}</div>
+        { nameTag }
         <div className="candidate-detail__bar-graph">
           <div className="bar" style={barStyle}>
             <div className="score">{ props.countUpState_vote_ratio }%</div>
@@ -91,7 +101,7 @@ export const CandidateImagePanel = (props) => {
  */
 const CandidateBoards = (props) =>{
   const candidates = props.candidates
-  const didVote = candidates.some((candidate =>{
+  const didSomeVote = candidates.some((candidate =>{
     return candidate.didVote
   }))
   const list = candidates.map((candidate, i) => {
@@ -101,7 +111,7 @@ const CandidateBoards = (props) =>{
         <div className="candidate-board-top">
           <CandidateImagePanel 
             {...candidate}
-            didVote={didVote}
+            didSomeVote={didSomeVote}
             number={i}
             handleVote={(e, candidateId) => props.handleVote(e, candidateId)}
           />

@@ -31,6 +31,8 @@ const AgendaCard = (props) => {
       </li>
     )
   })
+
+
   return(
     <div className="agenda-card">
       <Link to={`/agendas/${props.id}`} >

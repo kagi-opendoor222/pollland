@@ -109,6 +109,7 @@ class AgendaBoard extends React.Component{
       candidates.forEach((candidate, i)=>{
           candidate.vote_count = newCandidates[i].vote_count
           candidate.vote_ratio = newCandidates[i].vote_ratio
+          candidate.didVote = candidate.id === candidateId
       })
       this.setState({candidates: candidates})
     }).catch(err => {

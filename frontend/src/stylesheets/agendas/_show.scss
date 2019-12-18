@@ -96,9 +96,12 @@
     border: solid 1px white;
     text-decoration: none;
     color: white;
-    &:disabled{
-      background-color: rgba(red, 0.7);
-    }
+  }
+  .poll-button.chosen{
+    background-color: rgba(red, 0.7);
+  }
+  .poll-button.not-chosen{
+    background-color: rgba(gray, 0.7);
   }
 }
 
