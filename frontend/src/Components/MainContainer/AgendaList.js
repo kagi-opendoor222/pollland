@@ -7,19 +7,32 @@ import {BrowserRouter as Router, Link} from "react-router-dom";
  * @param {*} agendaPackage = {...agenda, candidate: [candidate1, candidate2, ...]}
  * 
  *   agenda:
- *     { id, message, name, start_time, end_time, created_at, updated_at, user_id }
+ *     { id, message, name, start_time, end_time, created_at, updated_at, user_id , user_name}
  *   candidate:
  *     { id, message, name, created_at, updated_at, agenda_id }
  */
 
 const AgendaCard = (props) => {
   const image_list = props.candidate.map((candidate, i)=>{
+    let image = candidate.image_url
+    if(candidate.image_url.length === 0){
+      switch(i){
+        case 0:
+          image = "https://2.bp.blogspot.com/-kkfurG90g6k/U-8GF8K-GCI/AAAAAAAAkys/YPzrhU55IxM/s800/alphabet_character_a.png";
+          break;
+        case 1:
+          image = "https://4.bp.blogspot.com/-7VZ-UQZcLzE/U-8GF3AZt_I/AAAAAAAAky0/XhUaHR8cQfs/s800/alphabet_character_b.png";
+          break;
+      }
+    }
     return(
       <li key={i}>
-        <img src={candidate.image_url} className=""/>
+        <img src={image} className=""/>
       </li>
     )
   })
+
+
   return(
     <div className="agenda-card">
       <Link to={`/agendas/${props.id}`} >
@@ -34,7 +47,7 @@ const AgendaCard = (props) => {
       </div>
       <div className="agenda-card__user">
         <img src="https://ai-catcher.com/wp-content/uploads/icon_74-1.png" />
-        <p>nickname</p>
+        <p>{props.user_name}</p>
       </div>
     </div>
   )

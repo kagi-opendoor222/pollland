@@ -39,7 +39,7 @@
         width: 100%;
         bottom: 5%;
         .bar{
-          background: linear-gradient(#40BFB0, #009F8C);
+          background: linear-gradient(rgba(#40BFB0, 0.9),rgba(#009F8C, 0.7) );
           border: solid 1px white;
           width: 15%;
           transition: 0.5s;
@@ -51,8 +51,8 @@
           position: absolute;
           right: 0px;
           bottom: -23px;
-          text-shadow:#232232 1px 1px 0px, #232232 1px 1px 0px,
-          #232232 1px 1px 0px, #232232 1px 1px 0px;
+          text-shadow:rgba(#232232, 0.9) 1px 1px 0px, rgba(#232232, 0.9)  1px 1px 0px,
+          rgba(#232232, 0.9)  1px 1px 0px, rgba(#232232, 0.9)  1px 1px 0px;
         }
       }
     }
@@ -60,8 +60,11 @@
   .candidate-board-bottom{
     background-color: white;
     color: $normalCharaColor;
+    padding: 20px;
+    // .message{
+    //   height: 100px
+    // }
     .comments{
-      padding: 20px;
       .comment{
         min-height: 100px;
         background-color: #C8EFEA;
@@ -93,6 +96,12 @@
     border: solid 1px white;
     text-decoration: none;
     color: white;
+  }
+  .poll-button.chosen{
+    background-color: rgba(red, 0.7);
+  }
+  .poll-button.not-chosen{
+    background-color: rgba(gray, 0.7);
   }
 }
 

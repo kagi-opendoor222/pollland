@@ -3,7 +3,7 @@ class VotesController < ApplicationController
   # voteのみをJSONで返してrenderしたい
   before_action :authenticate_user!, only: [:create]
   def create
-    Vote.create(candidate_id: params[:candidate_id], user_id: 1)
+    Vote.create(candidate_id: params[:candidate_id], user_id: current_user.id)
     candidate = Candidate.find(params[:candidate_id])
     candidates = candidate.agenda.candidates
     render json: {

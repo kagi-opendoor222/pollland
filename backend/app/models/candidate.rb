@@ -7,7 +7,7 @@ class Candidate < ApplicationRecord
   include Rails.application.routes.url_helpers
 
   def self.to_json_with_data(candidates)
-    return candidates.to_json(methods: [:image_url, :vote_count, :vote_ratio])
+    return candidates.to_json(methods: [:image_url, :vote_count, :vote_ratio, :votes_user_ids])
   end
 
   def parse_base64(img)
@@ -39,6 +39,10 @@ class Candidate < ApplicationRecord
       vote_ratio = 0
     end
     return vote_ratio
+  end
+
+  def votes_user_ids
+    votes.map{|vote| vote.user_id}
   end
 
   private

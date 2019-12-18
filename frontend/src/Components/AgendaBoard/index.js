@@ -36,7 +36,15 @@ class AgendaBoard extends React.Component{
     const url = `http://localhost:4000/agendas/${agendaId}`
     axios.get(url).then(response =>{
       const agenda = JSON.parse(response.data.agenda);
-      const candidates = JSON.parse(response.data.candidates);
+      let candidates = JSON.parse(response.data.candidates);
+      candidates = candidates.map((candidate)=>{
+        if(this.props.user){
+          candidate.didVote = candidate.votes_user_ids.includes(this.props.user.dataBaseId)
+        }else{
+          candidate.didVote = false
+        }
+        return candidate
+      })
       //全てのcandidteの画面に表示されるカウントアップ数値を0にする
       candidates.forEach((candidate)=>{
         candidate["countUpState_vote_ratio"] = 0
@@ -101,6 +109,7 @@ class AgendaBoard extends React.Component{
       candidates.forEach((candidate, i)=>{
           candidate.vote_count = newCandidates[i].vote_count
           candidate.vote_ratio = newCandidates[i].vote_ratio
+          candidate.didVote = candidate.id === candidateId
       })
       this.setState({candidates: candidates})
     }).catch(err => {
@@ -120,6 +129,7 @@ class AgendaBoard extends React.Component{
         <div className="agenda-title">
           {name}
         </div>
+        選んだ方に投票してみましょう！！
         <div className="contents-container">
           <CandidateBoards 
             agenda={agenda}

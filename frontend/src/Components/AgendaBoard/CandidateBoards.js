@@ -1,19 +1,26 @@
 import React from "react";
 
-export const Comments = () => {
+export const Message = (props) =>{
+  return(
+    <div className="message">
+    </div>
+  )
+}
+
+export const Comments = (props) => {
   return(
     <ul className="comments">
-      comments
-      <li className="comment">
-        <div className="comment__message">
-          テストテストテストテストテストテストテストテスト
-        </div>
-        <div className="comment__user">
-          <img src="https://ai-catcher.com/wp-content/uploads/icon_74-1.png" />
-          <p>nickname</p>
-        </div>
-      </li>
-    </ul>
+    MESSAGE
+    <li className="comment">
+      <div className="comment__message">
+        {props.message || "メッセージはありません。"}
+      </div>
+      <div className="comment__user">
+        <img src="https://ai-catcher.com/wp-content/uploads/icon_74-1.png" />
+        <p>{props.userName}</p>
+      </div>
+    </li>
+  </ul>
   )
 }
 
@@ -29,18 +36,44 @@ export const CandidateImagePanel = (props) => {
   const candidateId = props.id;
   const barWidth = (30 + props.countUpState_vote_ratio) * 0.5
   const barStyle = {
-    "background": "linear-gradient(#40BFB0, #009F8C)",
-    "border": "solid 1px white",
     "width": (barWidth + "%"),
-    "transition": "0.7s",
-    "height": "25px",
-    "position": "relative"
   }
+
+  //pollButton
+  let pollButton
+  if(props.didSomeVote){
+    const value = props.didVote ? "投票済" : "未投票"
+    const isChosen = props.didVote ? "chosen" : "not-chosen"
+    pollButton = <input type="submit" className={`poll-button ${isChosen}`} value={value} disabled/>
+  }else{
+    pollButton = <input type="submit" className="poll-button" value="投票"/>
+  }
+
+  //image
+  let image = props.image_url
+  if(props.image_url.length === 0){
+    switch(props.number){
+      case 0:
+        image = "https://2.bp.blogspot.com/-kkfurG90g6k/U-8GF8K-GCI/AAAAAAAAkys/YPzrhU55IxM/s800/alphabet_character_a.png";
+        break;
+      case 1:
+        image = "https://4.bp.blogspot.com/-7VZ-UQZcLzE/U-8GF3AZt_I/AAAAAAAAky0/XhUaHR8cQfs/s800/alphabet_character_b.png";
+        break;
+    }
+  }
+
+  //nameTag
+
+  let nameTag = props.name.length > 0 ?
+    <div className="candidate-detail__title">{props.name}</div> :
+    <div></div>
+    
+
   return(
     <React.Fragment>
-      <img src={props.image_url} className="candidate-image"/>
+      <img src={image} className="candidate-image"/>
       <div className="candidate-detail">
-        <div className="candidate-detail__title">{props.name}</div>
+        { nameTag }
         <div className="candidate-detail__bar-graph">
           <div className="bar" style={barStyle}>
             <div className="score">{ props.countUpState_vote_ratio }%</div>
@@ -49,7 +82,7 @@ export const CandidateImagePanel = (props) => {
           className="poll-form"
           onSubmit={(e) => props.handleVote(e, candidateId)}
         >
-          <input type="submit" className="poll-button" value="投票"/>
+          {pollButton}
         </form>
         </div>
       </div>
@@ -68,6 +101,9 @@ export const CandidateImagePanel = (props) => {
  */
 const CandidateBoards = (props) =>{
   const candidates = props.candidates
+  const didSomeVote = candidates.some((candidate =>{
+    return candidate.didVote
+  }))
   const list = candidates.map((candidate, i) => {
     return(
       <li className="candidate-board" id="candidate<%= candidate.id %>-board" key={i}>
@@ -75,11 +111,14 @@ const CandidateBoards = (props) =>{
         <div className="candidate-board-top">
           <CandidateImagePanel 
             {...candidate}
+            didSomeVote={didSomeVote}
+            number={i}
             handleVote={(e, candidateId) => props.handleVote(e, candidateId)}
           />
         </div>
         <div className="candidate-board-bottom">
-          <Comments />
+          <Message message={candidate.message} />
+          <Comments message={candidate.message} userName = {props.agenda.user_name}/>
         </div>
       </li>
     )
