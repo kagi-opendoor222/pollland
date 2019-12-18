@@ -2,6 +2,8 @@ class Agenda < ApplicationRecord
     belongs_to :user
     has_many :candidates
 
+    validates :name, presence: true
+
     def self.to_json_with_data(agendas)
       return agendas.to_json(methods: [:user_name])
     end
