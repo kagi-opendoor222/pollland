@@ -1,18 +1,22 @@
-version: "3"
+version: "2"
 services:
   frontend:
+    image: opendoor222/frontend
+    mem_limit: 268435456
     build:
       context: "./frontend"
       args:
         - VERSION=development
     ports: 
-      - "3000:3000"
+      - "80:3000"
     volumes:
       - ./frontend:/frontend
       - /frontend/node_modules
       - /frontend/dist
     command: npm start
   backend:
+    image: opendoor222/backend
+    mem_limit: 268435456
     build:
       context: "./backend"
       args: 
@@ -27,11 +31,13 @@ services:
     depends_on:
       - db
   db:
-    image: mysql:8.0
+    image: opendoor222/db
+    mem_limit: 268435456
+    build:
+      context: "./db"
     environment:
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
     volumes: 
-      - ./db/mysql-confd:/etc/mysql/conf.d
       - ./db/mysql_data:/var/lib/mysql
     ports:
       - '4306:3306'

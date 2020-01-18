@@ -12,3 +12,7 @@ RUN npm install --save-dev babel-loader @babel/core @babel/preset-env @babel/pre
 RUN npm install --save-dev html-webpack-plugin html-loader
 RUN npm install --save-dev sass-loader node-sass style-loader css-loader
 RUN npm install --save axios
+
+COPY .babelrc webpack.config.js ./
+COPY dist ./dist
+COPY src ./src
