@@ -82,4 +82,6 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  default_url_options[:host]= "http://13.114.112.136:4000" 
 end

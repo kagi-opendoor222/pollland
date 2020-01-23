@@ -1,6 +1,9 @@
 import React from "react";
 import axios from "axios";
 import {BrowserRouter as Router, Route, Link, Switch, Redirect} from "react-router-dom";
+import userEnv from "userEnv";
+
+console.log(userEnv.backendHost)
 
 //TODO: バリデーション作る
 //TODO: 画像をリサイズして軽くしたい
@@ -263,7 +266,7 @@ class PostAgendaForm extends React.Component{
   handleSubmit(e, props){
     e.preventDefault();
     const user = this.state.currentUser
-    const url = "http://localhost:4000/agendas"
+    const url = `${userEnv.backendHost}/agendas`
     let data = this.prettyfyFormData(this.state.form)
     const headers = {
       access_token: user.auth_token,

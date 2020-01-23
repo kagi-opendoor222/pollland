@@ -1,5 +1,6 @@
 const path = require("path");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
+const environment = process.env.NODE_ENV || 'development';
 
 module.exports = {
   entry: path.resolve(__dirname, "./src/index.js"),
@@ -7,7 +8,12 @@ module.exports = {
     path: path.resolve(__dirname, "dist"),
     filename: "bundle.js"
   },
-  mode: "development",
+  // mode: "development",
+  resolve: {
+    alias: {
+      userEnv$: path.resolve(__dirname, `env/${environment}.js`)
+    }
+  },
   module:{
     rules: [
       {
@@ -47,7 +53,8 @@ module.exports = {
     port: 3000,
     inline: true,
     host: "0.0.0.0",
-    historyApiFallback: true,
+    disableHostCheck: true,
+    historyApiFallback: true
     // proxy: {
     //   '/api': {
     //       target: 'http://localhost:4000', // local api server

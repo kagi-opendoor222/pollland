@@ -1,6 +1,8 @@
 import React from "react";
 import axios from "axios";
 import {BrowserRouter as Router, Link} from "react-router-dom";
+import userEnv from "userEnv"
+
 /**
  * ユーザーが投稿したAgenda(テーマ)とそれぞれのcandidate(投票対象)の情報を表示するカード1つを生成する。
  * 
@@ -132,7 +134,7 @@ class AgendaList extends React.Component{
    //TODO: もっとキレイに書きたい
   setStateFromAPI(){
     const user = this.state.currentUser
-    const url = "http://localhost:4000/agendas"
+    const url = `${userEnv.backendHost}/agendas`
     const headers = {
       access_token: user.auth_token,
       client: user.client_id,

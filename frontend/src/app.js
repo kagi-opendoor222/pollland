@@ -4,6 +4,9 @@ import axios from "axios";
 import GlobalContainer from "./Components/GlobalContainer.js"
 import Header from "./Components/Header";
 import SocialButton from "./Components/Shared/SocialButton"
+import userEnv from "userEnv";
+
+console.log(userEnv.backendHost)
 
 
 
@@ -84,7 +87,7 @@ class App extends React.Component {
   }
 
   loginByOmniAuth(provider){
-    const url = `http://localhost:4000/auth/${provider}`;
+    const url = `${userEnv.backendHost}/auth/${provider}`;
     const params = {origin: window.location}
     const paramsForUrl = this.toStringForUrl(params)
     location.href = url + "?"+ paramsForUrl
@@ -143,7 +146,7 @@ class App extends React.Component {
   }
 
   signIn(params){
-    const url = "http://localhost:4000/auth/validate_token"
+    const url = `${userEnv.backendHost}/auth/validate_token`
     const headers = {
       access_token: params.auth_token,
       client:       params.client_id,

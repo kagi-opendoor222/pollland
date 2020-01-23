@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 
 import CandidateBoards from "./CandidateBoards";
+import userEnv from "userEnv";
 
 /**
  * Agenda詳細画面
@@ -33,7 +34,7 @@ class AgendaBoard extends React.Component{
    */
   setStateFromAPI(){
     const agendaId = this.state.id
-    const url = `http://localhost:4000/agendas/${agendaId}`
+    const url = `${userEnv.backendHost}/agendas/${agendaId}`
     axios.get(url).then(response =>{
       const agenda = JSON.parse(response.data.agenda);
       let candidates = JSON.parse(response.data.candidates);
@@ -91,7 +92,7 @@ class AgendaBoard extends React.Component{
   handleVote(e, candidateId){
     e.preventDefault()
     const data = {candidate_id: candidateId}
-    const url = "http://localhost:4000/votes"
+    const url = `${userEnv.backendHost}/votes`
     const user = this.props.user
     const headers = {
       access_token: user.auth_token,

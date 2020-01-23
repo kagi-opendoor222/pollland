@@ -16,3 +16,4 @@ RUN npm install --save axios
 COPY .babelrc webpack.config.js ./
 COPY dist ./dist
 COPY src ./src
+COPY env ./env

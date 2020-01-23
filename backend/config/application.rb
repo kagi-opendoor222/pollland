@@ -38,12 +38,12 @@ module Backend
     config.middleware.use ActionDispatch::Session::CookieStore
     config.middleware.use ActionDispatch::Flash
 
-    config.x.cors_allowed_origins = ENV.fetch('CORS_ALLOWED_ORIGINS', [ "localhost:3000", "localhost", "35.182.207.151", "127.0.0.1"] )
+    config.x.cors_allowed_origins = ENV.fetch('CORS_ALLOWED_ORIGINS', [ "localhost:3000", "localhost", "35.182.207.151", "127.0.0.1", "13.114.112.136"] )
     # rack-corsここから
     config.middleware.insert_before 0, Rack::Cors do
       allow do
         # 許可するドメイン
-        origins "localhost:3000", "localhost", "example.com", "35.182.207.151", "127.0.0.1"
+        origins "localhost:3000", "localhost", "example.com", "35.182.207.151", "127.0.0.1", "13.114.112.136"
         # 許可するヘッダとメソッドの種類
         resource "*",
                  headers: :any,
